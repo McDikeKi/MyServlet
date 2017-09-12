@@ -5,12 +5,12 @@
 	id="WebApp_ID" version="3.0">
 	<servlet>
 		<servlet-name>fibonacci</servlet-name>
-		<servlet-class>com.harvey.function.FibonacciServlet</servlet-class>
+		<servlet-class>com.harvey.solve.servlet.FibonacciServlet</servlet-class>
 	</servlet>
 
 	<servlet>
 		<servlet-name>joseph</servlet-name>
-		<servlet-class>com.harvey.function.JosephServlet</servlet-class>
+		<servlet-class>com.harvey.solve.servlet.JosephServlet</servlet-class>
 	</servlet>
 
 	<servlet-mapping>

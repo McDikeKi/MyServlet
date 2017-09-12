@@ -1,14 +1,14 @@
-package com.harvey.function;
+package com.harvey.solve.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.harvey.solve.function.JosephProblemFunction;
 
 /**
  * Servlet implementation class FibonacciServlet
@@ -41,25 +41,11 @@ public class JosephServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		final int FINAL_SIZE = 1;
-		final int FINAL_INDEX = 0;
-		List<String> list = new ArrayList<>();
 		int startIndex = Integer.valueOf(request.getParameter("start"));
 		int interval = Integer.valueOf(request.getParameter("interval"));
-		String circleStr = request.getParameter("circle");
-		String[] circleStrlist = circleStr.trim().split(" ");
-
-		for (int i = 0; i < circleStrlist.length; i++) {
-			list.add(circleStrlist[i]);
-		}
-		while (list.size() > FINAL_SIZE) {
-			int currentindex = startIndex + interval - 1;
-			startIndex = (startIndex + interval) % list.size();
-			if (startIndex != 0) {
-				startIndex -= 1;
-			}
-			list.remove(currentindex % list.size());
-		}
+		String circle = request.getParameter("circle");
+		
+		String lastName = JosephProblemFunction.getFinalElement(circle, startIndex, interval);
 
 		response.setContentType("text/html");
 		PrintWriter out = response.getWriter();
@@ -71,7 +57,7 @@ public class JosephServlet extends HttpServlet {
 		out.println("</head>");
 		out.println("<body>");
 		out.println("<p>");
-		out.println("The last person is " + list.get(FINAL_INDEX));
+		out.println("The last person is " + lastName);
 		out.println("</p>");
 		response.getWriter().println("</body>");
 		response.getWriter().println("</html>");

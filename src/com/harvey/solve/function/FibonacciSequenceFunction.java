@@ -20,12 +20,15 @@ public class FibonacciSequenceFunction{
 	 * @exception
 	 */
 	public static List<BigDecimal> getSequenceResult(int num){
+		final int ZERO = 0;
 		final int FIRST_NUM = 1;
 		final BigDecimal FIRST_VALUE = new BigDecimal(0);
-		final int SECOND_NUM = 1;
+		final int SECOND_NUM = 2;
 		final BigDecimal SECOND_VALUE = new BigDecimal(1);
 		
 		List<BigDecimal> list = new ArrayList<>();
+		if(num==ZERO){
+		}
 		if(num==FIRST_NUM){
 			list.add(FIRST_VALUE);
 		}

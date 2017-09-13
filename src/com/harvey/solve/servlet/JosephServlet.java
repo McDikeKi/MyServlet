@@ -52,7 +52,7 @@ public class JosephServlet extends HttpServlet {
 
 		out.println("<html>");
 		out.println("<head>");
-		out.println("<title>Fibonacci Result</title>");
+		out.println("<title>Joseph Result</title>");
 		out.println("<style type=\"text/css\">.span-result{font-size:20px;font-weight:bold}</style>");
 		out.println("</head>");
 		out.println("<body>");

@@ -34,25 +34,29 @@ public class FibonacciServlet extends HttpServlet {
 			HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		int length = Integer.valueOf(request.getParameter("length"));
-		List<BigDecimal> list = FibonacciSequenceFunction.getSequenceResult(length);
-		
+		List<BigDecimal> list = FibonacciSequenceFunction
+				.getSequenceResult(length);
+
 		response.setContentType("text/html");
 		PrintWriter out = response.getWriter();
 
 		out.println("<html>");
 		out.println("<head>");
 		out.println("<title>Fibonacci Result</title>");
-		out.println("<style type=\"text/css\">.span-result{font-size:20px;font-weight:bold}</style>");
+		out.println("<style type=\"text/css\">.span-result{font-size:20px;font-weight:bold;margin-left:40px} "
+				+ ".li-result{font-size:20px;font-weight:bold;list-style-type:none}</style>");
 		out.println("</head>");
 		out.println("<body>");
 		out.println("<p>");
 		out.println("<span class=\"span-result\">Fibonacci Sequence:</span>");
 
-		for(int i = 0;i<list.size();i++){
-			out.println("<br/><span class=\"span-result\">" + list.get(i)
-					+ "</span>");
+		out.println("<ul>");
+
+		for (int i = 0; i < list.size(); i++) {
+			out.println("<li class=\"li-result\">" + list.get(i) + "</li>");
 		}
-	
+
+		out.println("</ul>");
 		out.println("</p>");
 		response.getWriter().println("</body>");
 		response.getWriter().println("</html>");

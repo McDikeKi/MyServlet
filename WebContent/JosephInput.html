@@ -1,25 +1,48 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Joseph Problem Solve</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>Joseph Problem Solve</title>
+	
+	<script src="jquery.js"></script>
+	<script language="javascript">	
+		function addLi(value){
+			if(value!=""){
+				$("#namelist").append('<li><input type="text" onblur="addLi(this.value)"></input></li>');
+			}
+		}
+	
+		function onSubmit(){
+			var requestStr="";
+			$("li").each(function(){
+				var name = $(this).children()[0].value;
+				if(name != ""){
+					requestStr += name+" ";
+				}	
+			})
+			$("#circle").val(requestStr);
+			return true;
+		}		
+		function checkEnter(){
+			
+		}
+	</script>
 </head>
 <body>
 	<form action="http://localhost:8080/FunctionServlet/JosephResult"
 		method="post">
-		<p style="font-size: 15px; font-weight: bold">Input the
-			circle(Separated by spaces):</p>
-		<br /> <input style="width: 500px; border：1; valign: top" type="text"
-			name="circle" /> <br />
+		<input type="hidden" id="circle" name="circle">
+		<p style="font-size: 15px; font-weight: bold">Input the circle(Separated by spaces):</p> <br /> 
+		<ol id="namelist">
+			<li><input type="text" onblur="addLi(this.value)"/></li>
+		</ol>
+		
 		<div style="margin-top: 20px">
 			<p style="font-size: 15px; font-weight: bold; display: inline">Start:</p>
-			<input style="width: 50px; text-align: right" type="text"
-				name="start" />
-			<p
-				style="font-size: 15px; font-weight: bold; margin-left: 20px; display: inline">Interval:</p>
-			<input style="width: 50px; text-align: right" type="text"
-				name="interval" /> <input style="margin-left: 20px" type="submit"
-				value="submit" />
+			<input style="width: 50px; text-align: right" type="text" name="start" />
+			<p style="font-size: 15px; font-weight: bold; margin-left: 20px; display: inline">Interval:</p>
+			<input style="width: 50px; text-align: right" type="text" name="interval"/> 
+			<input style="margin-left: 20px" type="submit" value="submit" onkeypress="checkEnter()" onclick="return onSubmit();" />
 		</div>
 	</form>
 </body>

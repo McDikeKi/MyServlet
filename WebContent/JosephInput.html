@@ -3,46 +3,29 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<title>Joseph Problem Solve</title>
+	<style type="text/css">
+			@import url(css/mycss.css);
+	</style>
 	
-	<script src="jquery.js"></script>
-	<script language="javascript">	
-		function addLi(value){
-			if(value!=""){
-				$("#namelist").append('<li><input type="text" onblur="addLi(this.value)"></input></li>');
-			}
-		}
+	<script src="js/jquery.js"></script>
+	<script type="text/javascript" src="js/script.js"></script>
 	
-		function onSubmit(){
-			var requestStr="";
-			$("li").each(function(){
-				var name = $(this).children()[0].value;
-				if(name != ""){
-					requestStr += name+" ";
-				}	
-			})
-			$("#circle").val(requestStr);
-			return true;
-		}		
-		function checkEnter(){
-			
-		}
-	</script>
 </head>
 <body>
 	<form action="http://localhost:8080/FunctionServlet/JosephResult"
 		method="post">
 		<input type="hidden" id="circle" name="circle">
-		<p style="font-size: 15px; font-weight: bold">Input the circle(Separated by spaces):</p> <br /> 
+		<p style="font-size: 15px; font-weight: bold">Input the circle(Separated by spaces):</p>  
 		<ol id="namelist">
 			<li><input type="text" onblur="addLi(this.value)"/></li>
 		</ol>
 		
 		<div style="margin-top: 20px">
-			<p style="font-size: 15px; font-weight: bold; display: inline">Start:</p>
-			<input style="width: 50px; text-align: right" type="text" name="start" />
-			<p style="font-size: 15px; font-weight: bold; margin-left: 20px; display: inline">Interval:</p>
-			<input style="width: 50px; text-align: right" type="text" name="interval"/> 
-			<input style="margin-left: 20px" type="submit" value="submit" onkeypress="checkEnter()" onclick="return onSubmit();" />
+			<p class="start-text">Start:</p>
+			<input class="start-input" type="text" name="start" />
+			<p class="interval-text">Interval:</p>
+			<input class="interval-input" type="text" name="interval"/> 
+			<input class="joseph-submit-bt" type="submit" value="submit" onkeypress="checkEnter()" onclick="return onSubmit();" />
 		</div>
 	</form>
 </body>

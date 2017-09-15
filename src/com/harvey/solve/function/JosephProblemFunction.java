@@ -1,6 +1,5 @@
 package com.harvey.solve.function;
 
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -19,20 +18,12 @@ public class JosephProblemFunction{
 	 * @param interval: the interval
 	 * @return the last person's name
 	 */
-	public static String getFinalElement(String circle, int startIndex,
+	public static String getFinalElement(List<String> list, int startIndex,
 			int interval) {
 		
 		final int FINAL_SIZE = 1;
 		final int FINAL_INDEX = 0;
-		List<String> list = new ArrayList<>();
 		int index = startIndex;
-		
-		String circleStr = circle;
-		String[] circleStrlist = circleStr.trim().split(" ");
-
-		for (int i = 0; i < circleStrlist.length; i++) {
-			list.add(circleStrlist[i]);
-		}
 		
 		while (list.size() > FINAL_SIZE) {
 			int currentindex = index + interval - 1;

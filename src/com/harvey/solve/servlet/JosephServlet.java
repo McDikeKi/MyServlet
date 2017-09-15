@@ -2,6 +2,8 @@ package com.harvey.solve.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -45,7 +47,16 @@ public class JosephServlet extends HttpServlet {
 		int interval = Integer.valueOf(request.getParameter("interval"));
 		String circle = request.getParameter("circle");
 		
-		String lastName = JosephProblemFunction.getFinalElement(circle, startIndex, interval);
+		List<String> list = new ArrayList<>();
+		
+		String circleStr = circle;
+		String[] circleStrlist = circleStr.trim().split(" ");
+
+		for (int i = 0; i < circleStrlist.length; i++) {
+			list.add(circleStrlist[i]);
+		}
+		
+		String lastName = JosephProblemFunction.getFinalElement(list, startIndex, interval);
 
 		response.setContentType("text/html");
 		PrintWriter out = response.getWriter();
@@ -59,8 +70,8 @@ public class JosephServlet extends HttpServlet {
 		out.println("<p>");
 		out.println("The last person is " + lastName);
 		out.println("</p>");
-		response.getWriter().println("</body>");
-		response.getWriter().println("</html>");
+		out.println("</body>");
+		out.println("</html>");
 
 		out.flush();
 		out.close();

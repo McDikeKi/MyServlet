@@ -14,14 +14,8 @@
 </head>
 <body class="body-background">
 	<div class="div-background">
-		<ul class="ul-whole">
+		<ul class="ul-input">
 			<li class="li-title">Joseph Problem Solve</li>
-			<li class="li-input">
-				<div>
-					<label class="label-tag">Circle</label>
-					<input class="input-text" type="text" id="circle"/>
-				</div>
-			</li>
 			<li class="li-input">
 				<div>
 					<label class="label-tag">Start Index</label>
@@ -36,8 +30,43 @@
 			</li>
 			<li class="li-input">
 				<div>
+					<label class="label-names-tag">Names</label>
+					<ol class="ol-name" id="nameslist">
+						<li class="li-for-name" id="li1" onblur="show()">
+							<label class="label-name" >A</label>
+							<div class="div-option" >
+								<button class="button-lable-option">Insert</button>
+							    <button class="button-lable-option">Delete</button>
+							    <button class="button-lable-option">Up</button>
+							    <button class="button-lable-option">Down</button>
+							    <button class="button-lable-option">Rename</button>
+							 </div>
+						</li>
+						<li class="li-for-name" id="li2" onblur="show()">
+							<label class="label-name" >B</label>
+							<div class="div-option" >
+								<button class="button-lable-option">Insert</button>
+							    <button class="button-lable-option">Delete</button>
+							    <button class="button-lable-option">Up</button>
+							    <button class="button-lable-option">Down</button>
+							    <button class="button-lable-option">Rename</button>
+							 </div>
+						</li>
+						<li class="li-input-field"><input class="input-name-field" type="text" id="nameinput" disabled="disabled" onblur="blurfunction()"/></li>
+						<li class="li-buttons">
+							<button class="button-append" type="button" id="appendbt" onclick="append()">Append</button>
+							<button class="button-clear" type="button" id="clearbt" onclick="clear()">Clear</button>
+						</li> 
+					</ol>
+
+				</div>
+			</li>
+		</ul>
+		<ul class="ul-result">
+			<li class="li-input">
+				<div>
 					<label class="label-tag">Result</label>
-					<input class="input-result" id="resultinput" disabled="disabled"/>
+					<p class="p-result" id="resultinput">&nbsp;</p>
 				</div>
 			</li>
 			<li class="li-input">

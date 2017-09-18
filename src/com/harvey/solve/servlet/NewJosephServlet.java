@@ -52,23 +52,24 @@ public class NewJosephServlet extends HttpServlet {
 		
 		//String lastName = JosephProblemFunction.getFinalElement(circle, startIndex, interval);
 
-		String jsonStr = request.getParameter("json");
+		String jsonStr = request.getReader().readLine().trim();
+		
 		Gson gson = new Gson();
 		JosephRequest jRequest = gson.fromJson(jsonStr, JosephRequest.class);
 		
 		List<String> list = new ArrayList<>();
 		
-		Iterator<Person> iterator = (Iterator) jRequest.getCircle().iterator();
+		Iterator<String> iterator = (Iterator) jRequest.getPersons();
 		while(iterator.hasNext()){
-			Person person = (Person) iterator.next();
-			list.add(person.getName());
+			list.add((String)iterator.next());
 		}
 		String result = JosephProblemFunction.getFinalElement(list, jRequest.getStart(), jRequest.getInterval());
 		
+		response.setContentType("application/json");
 		response.setCharacterEncoding("utf-8");
 		PrintWriter out = response.getWriter();
 		
-		out.print("{\"result\":\""+result+"\"}");
+		out.print("{\"person\":\""+result+"\"}");
 		out.flush();
 		out.close();
 	}

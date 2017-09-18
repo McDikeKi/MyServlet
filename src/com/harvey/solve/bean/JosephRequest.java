@@ -3,20 +3,21 @@ package com.harvey.solve.bean;
 import java.util.List;
 
 public class JosephRequest {
-	private List<Person> circle;
+	private List<String> persons;
 	private int start;
 	private int interval;
 	
-	public JosephRequest(List<Person> circle, int start, int interval) {
-		this.circle = circle;
+	public JosephRequest(List<String> persons, int start, int interval) {
+		super();
+		this.persons = persons;
 		this.start = start;
 		this.interval = interval;
 	}
-	public List<Person> getCircle() {
-		return circle;
+	public List<String> getPersons() {
+		return persons;
 	}
-	public void setCircle(List<Person> circle) {
-		this.circle = circle;
+	public void setPersons(List<String> persons) {
+		this.persons = persons;
 	}
 	public int getStart() {
 		return start;
@@ -32,7 +33,7 @@ public class JosephRequest {
 	}
 	@Override
 	public String toString() {
-		return "JosephRequest [circle=" + circle.get(0) + ", start=" + start
+		return "JosephRequest [start=" + start
 				+ ", interval=" + interval + "]";
 	}
 	

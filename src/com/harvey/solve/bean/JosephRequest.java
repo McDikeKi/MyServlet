@@ -4,10 +4,11 @@ import java.util.List;
 
 public class JosephRequest {
 	private List<String> persons;
-	private int start;
-	private int interval;
+	private String start;
+	private String interval;
 	
-	public JosephRequest(List<String> persons, int start, int interval) {
+
+	public JosephRequest(List<String> persons, String start, String interval) {
 		super();
 		this.persons = persons;
 		this.start = start;
@@ -19,16 +20,16 @@ public class JosephRequest {
 	public void setPersons(List<String> persons) {
 		this.persons = persons;
 	}
-	public int getStart() {
+	public String getStart() {
 		return start;
 	}
-	public void setStart(int start) {
+	public void setStart(String start) {
 		this.start = start;
 	}
-	public int getInterval() {
+	public String getInterval() {
 		return interval;
 	}
-	public void setInterval(int interval) {
+	public void setInterval(String interval) {
 		this.interval = interval;
 	}
 	@Override

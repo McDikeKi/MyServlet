@@ -1,4 +1,14 @@
-﻿function addLi(value){
+﻿var HIDDEN = 0; 
+var FOR_APPEND = 1;
+var FOR_RENAME = 2;
+var FOR_INSERT = 3;
+var textState = HIDDEN;
+var tagId = "";
+var idAccumulator=1;
+var insertId="";
+var renameId="";
+
+function addLi(value){
 	if(value!=""){
 		$("#namelist").append('<li><input type="text" onblur="addLi(this.value)"></input></li>');
 	}
@@ -29,25 +39,27 @@ function onSubmit(){
 }
 
 function getResult(){
-	var circletext = $("#circle").val().trim();
+	//var circletext = $("#circle").val().trim();
 	var startindextext = $("#startindex").val().trim();
 	var interval = $("#interval").val().trim();
-	if(circletext!=""&&startindextext!=""&&interval!=""){
-		var json = {};
-		var circleobj = [];
+	var nameNum = $("#nameslist li").length;
+	if(nameNum>0&&startindextext!=""&&interval!=""){
+		var json = {};	
+		var request = {};
+		//var persons = circletext.trim().split(",");
+		var persons = [];
+		$("#nameslist").children("li").each(function(){
+			$(this).children("label").each(function(){
+				persons.push($(this).text());
+			});
+		});
 		
+		request.start = startindextext;
+		request.interval = interval;
+		request.persons = persons;
+		json.circle = request;
+		console.log("json:"+JSON.stringify(json));
 		
-		var circlearr = circletext.trim().split(",");
-		for(var i = 0;i<circlearr.length;i++){
-			var row = {};
-			row.name = circlearr[i];
-			circleobj.push(row);
-		}
-		json.circle = circleobj;
-		json.start = parseInt(startindextext);
-		json.interval = parseInt(interval);
-		
-		var start = {};
 		$.ajax({  
 	        url:'NewJosephServlet',  
 	        type:'post',
@@ -57,15 +69,195 @@ function getResult(){
 	        success:function(msg){  
 	        	var obj = msg;
 	        	var result = obj.person;
-	        	$("#resultinput").val(result.toString());
+	        	$("#resultinput").text(result.toString());
 	        }, 
 	    });
 	}
 }
 
-function blurFunction(){
+function setButtons(labelId){
+	$('#'+labelId).parent().hover(
+			function(){
+				$(this).children('div').css("display","block");
+			},function(){
+				$(this).children('div').css("display","none");
+	});
+	
+	$('#'+labelId).parent().children('div').children().hover(
+			function(){
+				$(this).css("background-color","#EBEBEB");
+			},function(){
+				$(this).css("background-color","#fff");
+	});
+	
+	$('#'+labelId+'1').click(function(){
+		$("#nameinput").css("display","block");
+		$("#nameinput").removeAttr("disabled");
+		$("#nameinput").focus();
+		textState = FOR_INSERT;
+		insertId = labelId;
+	});	
+	
+	$('#'+labelId+'2').click(function(){
+		$('#'+labelId+'').parent().remove();
+	});
+	
+	$('#'+labelId+'3').click(function(){
+		if($("#"+labelId).parent().prev().length != 0){
+			addNameLabelBefore($("#"+labelId).parent().prev(),$("#"+labelId).text());
+			$('#'+labelId+'').parent().remove();
+		}
+		else{
+			$(this).blur();
+		}
+	});
+	
+	$('#'+labelId+'4').click(function(){
+		if($("#"+labelId).parent().next().length != 0){
+			addNameLabelAfter($("#"+labelId).parent().next(),$("#"+labelId).text());
+			$('#'+labelId+'').parent().remove();
+		}
+		else{
+			$(this).blur();
+		}
+	});
+	
+	$('#'+labelId+'5').click(function(){
+		$("#"+labelId).css("background","#EBEBEB");
+		$("#nameinput").css("display","block");
+		$("#nameinput").removeAttr("disabled");
+		$("#nameinput").focus();
+		textState = FOR_RENAME;
+		renameId = labelId;
+	});
+}
+
+function addNameLabelAppend(name){
+	var labelId=idAccumulator.toString();
+	var zeroNum = 3-labelId.length;
+	var zeroString = "";
+	for(var i = 0;i < zeroNum;i++){
+		zeroString += "0";
+	}
+	labelId = zeroString+labelId;
+	
+	$("#nameslist").append('<li class="li-for-name" id="li2" onblur="show()">'+
+			'<label class="label-name" id="'+labelId+'">'+name+'</label>'+
+			'<div class="div-option" >'+
+				'<button class="button-lable-option" id="'+labelId+'1">Insert</button>'+
+				'<button class="button-lable-option" id="'+labelId+'2">Delete</button>'+
+				'<button class="button-lable-option" id="'+labelId+'3">Up</button>'+
+				'<button class="button-lable-option" id="'+labelId+'4">Down</button>'+
+				'<button class="button-lable-option" id="'+labelId+'5">Rename</button>'+
+			'</div>'+
+	'</li>');
+		
+	setButtons(labelId);
+	idAccumulator++;
+}
+
+function addNameLabelBefore(locationLi,name){
+	var labelId=idAccumulator.toString();
+	var zeroNum = 3-labelId.length;
+	var zeroString = "";
+	for(var i = 0;i < zeroNum;i++){
+		zeroString += "0";
+	}
+	labelId = zeroString+labelId;
+	
+	$(locationLi).before('<li class="li-for-name" id="li2" onblur="show()">'+
+			'<label class="label-name" id="'+labelId+'">'+name+'</label>'+
+			'<div class="div-option" >'+
+				'<button class="button-lable-option" id="'+labelId+'1">Insert</button>'+
+				'<button class="button-lable-option" id="'+labelId+'2">Delete</button>'+
+				'<button class="button-lable-option" id="'+labelId+'3">Up</button>'+
+				'<button class="button-lable-option" id="'+labelId+'4">Down</button>'+
+				'<button class="button-lable-option" id="'+labelId+'5">Rename</button>'+
+			'</div>'+
+	'</li>');
+		
+	setButtons(labelId);
+	idAccumulator++;
+}
+
+function addNameLabelAfter(locationLi,name){
+	var labelId=idAccumulator.toString();
+	var zeroNum = 3-labelId.length;
+	var zeroString = "";
+	for(var i = 0;i < zeroNum;i++){
+		zeroString += "0";
+	}
+	labelId = zeroString+labelId;
+	
+	$(locationLi).after('<li class="li-for-name" id="li2" onblur="show()">'+
+			'<label class="label-name" id="'+labelId+'">'+name+'</label>'+
+			'<div class="div-option" >'+
+				'<button class="button-lable-option" id="'+labelId+'1">Insert</button>'+
+				'<button class="button-lable-option" id="'+labelId+'2">Delete</button>'+
+				'<button class="button-lable-option" id="'+labelId+'3">Up</button>'+
+				'<button class="button-lable-option" id="'+labelId+'4">Down</button>'+
+				'<button class="button-lable-option" id="'+labelId+'5">Rename</button>'+
+			'</div>'+
+	'</li>');
+		
+	setButtons(labelId);
+	idAccumulator++;
+}
+
+function blurfunction(){
 	if(textState==FOR_APPEND){
-		$("#inputfield").before();
+		if($("#nameinput").val()!=""){
+			addNameLabelAppend($("#nameinput").val());
+			
+			$("#nameinput").val("");
+			$("#nameinput").attr("disabled","disabled");
+			$("#nameinput").css("display","none");
+			textState=HIDDEN;
+		}
+		else{
+			$("#nameinput").val("");
+			$("#nameinput").attr("disabled","disabled");
+			$("#nameinput").css("display","none");
+			textState=HIDDEN;
+		}
+	}
+	if(textState==FOR_INSERT){
+		if($("#nameinput").val()!=""){
+			addNameLabelBefore($('#'+insertId).parent(),$("#nameinput").val());
+			
+			insertId="";
+			$("#nameinput").val("");
+			$("#nameinput").attr("disabled","disabled");
+			$("#nameinput").css("display","none");
+			textState=HIDDEN;
+		}
+		else{
+			insertId = "";
+			$("#nameinput").val("");
+			$("#nameinput").attr("disabled","disabled");
+			$("#nameinput").css("display","none");
+			textState=HIDDEN;
+		}
+	}
+	if(textState==FOR_RENAME){
+		if($("#nameinput").val()!=""){
+			$("#"+renameId).text($("#nameinput").val());
+			$("#"+renameId).css("background","#fff");
+			
+			renameId="";
+			$("#nameinput").val("");
+			$("#nameinput").attr("disabled","disabled");
+			$("#nameinput").css("display","none");
+			textState=HIDDEN;
+		}
+		else{
+			$("#"+labelId).css("background","#fff");
+			renameId="";
+			$("#nameinput").val("");
+			$("#nameinput").attr("disabled","disabled");
+			$("#nameinput").css("display","none");
+			textState=HIDDEN;
+		}
 	}
 }
 
@@ -112,50 +304,28 @@ function addName(input){
 
 
 $(document).ready(function(){
-	var HIDDEN = 0; 
-	var FOR_APPEND = 1;
-	var FOR_RENAME = 2;
-	var textState = HIDDEN;
-	var tagId = "";
 	
 	$("#names").append('<li class="li-name"><input class="input-name" type="text" onblur="addName(this)"/></li>');
 	
-	$("#inputfield").keyup(function(e){
+	$("#nameinput").keyup(function(e){
         if(e.keyCode == 13)
         	this.blur();
     });     
-	
-	$('#li1').hover(
-			function(){
-				$(this).children('div').css("display","block");
-			},function(){
-				$(this).children('div').css("display","none");
-	});
-	
-	$('#li1').children('div').children().hover(
-			function(){
-				$(this).css("background-color","#EBEBEB");
-			},function(){
-				$(this).css("background-color","#fff");
-	});
-	
-	$('#li2').hover(
-			function(){
-				$(this).children('div').css("display","block");
-			},function(){
-				$(this).children('div').css("display","none");
-	});
-	
-	$('#li2').children('div').children().hover(
-			function(){
-				$(this).css("background-color","#EBEBEB");
-			},function(){
-				$(this).css("background-color","#fff");
-	});
 			
 });
 
 function append(){
-	$("#inputfield").removeAttr("disabled");
+	$("#nameinput").css("display","block");
+	$("#nameinput").removeAttr("disabled");
 	textState=FOR_APPEND;
+	$("#nameinput").focus();
 };
+
+function clearAll(){
+	$("ol li").each(function(){
+		if($(this).attr("class")==="li-for-name"){
+			$(this).remove();
+		}
+	});
+	idAccumulator = 1;
+}

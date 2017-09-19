@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.harvey.solve.function.JosephProblemFunction;
+import com.harvey.solve.service.JosephProblemFunction;
 
 /**
  * Servlet implementation class FibonacciServlet

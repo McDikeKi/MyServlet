@@ -3,7 +3,6 @@ package com.harvey.solve.servlet;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -13,9 +12,10 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+import com.harvey.solve.bean.JosephJsonObj;
 import com.harvey.solve.bean.JosephRequest;
 import com.harvey.solve.bean.Person;
-import com.harvey.solve.function.JosephProblemFunction;
+import com.harvey.solve.service.JosephProblemFunction;
 
 
 /**
@@ -51,19 +51,20 @@ public class NewJosephServlet extends HttpServlet {
 //		String circle = request.getParameter("circle");
 		
 		//String lastName = JosephProblemFunction.getFinalElement(circle, startIndex, interval);
-
-		String jsonStr = request.getReader().readLine().trim();
+		String line="";
+		String jsonStr = "";
+		while((line = request.getReader().readLine()) != null){
+			jsonStr += line.trim();
+		}
+		//System.out.println("json is"+jsonStr);
 		
 		Gson gson = new Gson();
-		JosephRequest jRequest = gson.fromJson(jsonStr, JosephRequest.class);
+		JosephJsonObj jRequest = gson.fromJson(jsonStr, JosephJsonObj.class);
 		
-		List<String> list = new ArrayList<>();
+		List<String> list = new ArrayList<>(jRequest.getCircle().getPersons());
 		
-		Iterator<String> iterator = (Iterator) jRequest.getPersons();
-		while(iterator.hasNext()){
-			list.add((String)iterator.next());
-		}
-		String result = JosephProblemFunction.getFinalElement(list, jRequest.getStart(), jRequest.getInterval());
+		String result = JosephProblemFunction.getFinalElement(list, Integer.valueOf(jRequest.getCircle().getStart()), 
+				Integer.valueOf(jRequest.getCircle().getInterval()));
 		
 		response.setContentType("application/json");
 		response.setCharacterEncoding("utf-8");

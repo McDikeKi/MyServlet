@@ -75,6 +75,7 @@ public class NewJosephServlet extends HttpServlet {
 		startIndex = Integer.valueOf(jsonObj.getJSONObject("circle").getString("start"));
 		interval = Integer.valueOf(jsonObj.getJSONObject("circle").getString("interval"));
 	
+		@SuppressWarnings("unchecked")
 		List<String> list = JSONArray.toList(jsonObj.getJSONObject("circle").getJSONArray("persons"),String.class);
 		
 		String result = JosephProblemFunction.getFinalElement(list,startIndex,interval);

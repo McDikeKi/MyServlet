@@ -8,24 +8,6 @@ var idAccumulator=1;
 var insertId="";
 var renameId="";
 
-function addLi(value){
-	if(value!=""){
-		$("#namelist").append('<li><input type="text" onblur="addLi(this.value)"></input></li>');
-	}
-}
-
-function onSubmit(){
-	var requestStr="";
-	$("li").each(function(){
-		var name = $(this).children()[0].value;
-		if(name != ""){
-			requestStr += name+" ";
-		}	
-	});
-	$("#circle").val(requestStr);
-	return true;
-}	
-
 function onSubmit(){
 	var requestStr="";
 	$("li").each(function(){

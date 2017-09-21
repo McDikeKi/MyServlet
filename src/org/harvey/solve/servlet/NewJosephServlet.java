@@ -1,8 +1,7 @@
-package com.harvey.solve.servlet;
+package org.harvey.solve.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -10,12 +9,16 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.google.gson.Gson;
-import com.google.gson.JsonObject;
-import com.harvey.solve.bean.JosephJsonObj;
-import com.harvey.solve.bean.JosephRequest;
-import com.harvey.solve.bean.Person;
-import com.harvey.solve.service.JosephProblemFunction;
+import org.harvey.solve.service.JosephProblemFunction;
+
+import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
+
+
+
+//import com.google.gson.Gson;
+//import com.google.gson.JsonArray;
+//import com.harvey.solve.bean.JosephJsonObj;
 
 
 /**
@@ -53,18 +56,28 @@ public class NewJosephServlet extends HttpServlet {
 		//String lastName = JosephProblemFunction.getFinalElement(circle, startIndex, interval);
 		String line="";
 		String jsonStr = "";
+		int startIndex;
+		int interval;
 		while((line = request.getReader().readLine()) != null){
 			jsonStr += line.trim();
 		}
 		//System.out.println("json is"+jsonStr);
 		
-		Gson gson = new Gson();
-		JosephJsonObj jRequest = gson.fromJson(jsonStr, JosephJsonObj.class);
+//		Gson gson = new Gson();
+//		JosephJsonObj jRequest = gson.fromJson(jsonStr, JosephJsonObj.class);
 		
-		List<String> list = new ArrayList<>(jRequest.getCircle().getPersons());
+//		startIndex = Integer.valueOf(jRequest.getCircle().getStart());
+//		interval = Integer.valueOf(jRequest.getCircle().getInterval());
+//		List<String> list = new ArrayList<>(jRequest.getCircle().getPersons());
 		
-		String result = JosephProblemFunction.getFinalElement(list, Integer.valueOf(jRequest.getCircle().getStart()), 
-				Integer.valueOf(jRequest.getCircle().getInterval()));
+		JSONObject jsonObj = JSONObject.fromString(jsonStr);
+		
+		startIndex = Integer.valueOf(jsonObj.getJSONObject("circle").getString("start"));
+		interval = Integer.valueOf(jsonObj.getJSONObject("circle").getString("interval"));
+	
+		List<String> list = JSONArray.toList(jsonObj.getJSONObject("circle").getJSONArray("persons"),String.class);
+		
+		String result = JosephProblemFunction.getFinalElement(list,startIndex,interval);
 		
 		response.setContentType("application/json");
 		response.setCharacterEncoding("utf-8");

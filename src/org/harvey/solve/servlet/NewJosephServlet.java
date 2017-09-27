@@ -2,19 +2,21 @@ package org.harvey.solve.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.harvey.solve.service.JosephProblemFunction;
-
-import net.sf.json.JSONArray;
-import net.sf.json.JSONObject;
-
-
+import org.apache.log4j.Logger;
+import org.harvey.solve.business.CheckJosephRequest;
+import org.harvey.solve.business.SolveJosephProblem;
+import org.harvey.solve.converter.universalconverter.JsonConverter;
+import org.harvey.solve.dto.Request;
+import org.harvey.solve.dto.Response;
+import org.harvey.solve.exception.IlligalInputException;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 //import com.google.gson.Gson;
 //import com.google.gson.JsonArray;
@@ -26,65 +28,90 @@ import net.sf.json.JSONObject;
  */
 public class NewJosephServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
+	private static Logger log = Logger.getLogger(NewJosephServlet.class);
+	private static boolean legalInput = false;
     /**
      * @see HttpServlet#HttpServlet()
      */
     public NewJosephServlet() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
- 
-        //response.setCharacterEncoding("utf-8");  
-//		int startIndex = Integer.valueOf(request.getParameter("start"));
-//		int interval = Integer.valueOf(request.getParameter("interval"));
-//		String circle = request.getParameter("circle");
-		
-		//String lastName = JosephProblemFunction.getFinalElement(circle, startIndex, interval);
-		String line="";
-		String jsonStr = "";
-		int startIndex;
-		int interval;
-		while((line = request.getReader().readLine()) != null){
-			jsonStr += line.trim();
-		}
-		//System.out.println("json is"+jsonStr);
-		
-//		Gson gson = new Gson();
-//		JosephJsonObj jRequest = gson.fromJson(jsonStr, JosephJsonObj.class);
-		
-//		startIndex = Integer.valueOf(jRequest.getCircle().getStart());
-//		interval = Integer.valueOf(jRequest.getCircle().getInterval());
-//		List<String> list = new ArrayList<>(jRequest.getCircle().getPersons());
-		
-		JSONObject jsonObj = JSONObject.fromString(jsonStr);
-		
-		startIndex = Integer.valueOf(jsonObj.getJSONObject("circle").getString("start"));
-		interval = Integer.valueOf(jsonObj.getJSONObject("circle").getString("interval"));
-	
-		@SuppressWarnings("unchecked")
-		List<String> list = JSONArray.toList(jsonObj.getJSONObject("circle").getJSONArray("persons"),String.class);
-		
-		String result = JosephProblemFunction.getFinalElement(list,startIndex,interval);
 		
 		response.setContentType("application/json");
 		response.setCharacterEncoding("utf-8");
 		PrintWriter out = response.getWriter();
+		String result;
 		
-		out.print("{\"person\":\""+result+"\"}");
+		String line="";
+		StringBuffer jsonStr = new StringBuffer();
+		
+		while((line = request.getReader().readLine()) != null){
+			jsonStr.append(line.trim());
+		}
+		legalInput = true;
+		JSONObject jsonObj = new JSONObject(jsonStr.toString());
+		try {
+			CheckJosephRequest.check(jsonObj);
+		} catch (IlligalInputException e) {
+			log.warn(e.getMessage()+"-"+e.getCause().getMessage());
+			legalInput = false;
+		}
+		if(legalInput){
+			JsonConverter converter = new JsonConverter();
+			Request josephRequest = null;
+			try {
+				josephRequest = (Request) converter.fromJson(jsonObj,Request.class);
+			} catch (InstantiationException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IllegalAccessException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IllegalArgumentException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (NegativeArraySizeException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			Response josephResponse = SolveJosephProblem.solve(josephRequest);
+			
+			JSONObject responseJsonObj = null;
+			try {
+				responseJsonObj = converter.toJson(josephResponse,Response.class);
+			} catch (IllegalArgumentException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IllegalAccessException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			result = responseJsonObj.toString();
+			response.setStatus(200);
+		}
+		else{
+			result = "";
+			response.setStatus(204);
+		}
+		out.print(result);
 		out.flush();
 		out.close();
 	}

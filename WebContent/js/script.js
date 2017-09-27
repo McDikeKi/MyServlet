@@ -36,8 +36,8 @@ function getResult(){
 			});
 		});
 		
-		request.start = startindextext;
-		request.interval = interval;
+		request.start = parseInt(startindextext);
+		request.interval = parseInt(interval);
 		request.persons = persons;
 		json.circle = request;
 		console.log("json:"+JSON.stringify(json));
@@ -48,10 +48,15 @@ function getResult(){
 	        contentType: "application/json; charset=utf-8",
 	        data: JSON.stringify(json),
 	        dataType:'json',
-	        success:function(msg){  
-	        	var obj = msg;
-	        	var result = obj.person;
-	        	$("#resultinput").text(result.toString());
+	        success:function(msg){ 
+	        	if(msg == null){
+	        		alert("Illegal input");
+	        	}
+	        	else{
+		        	var obj = msg;
+		        	var result = obj.person;
+		        	$("#resultinput").text(result.toString());
+	        	}
 	        }, 
 	    });
 	}

@@ -43,7 +43,8 @@ function getResult(){
 		console.log("json:"+JSON.stringify(json));
 		
 		$.ajax({  
-	        url:'NewJosephServlet',  
+	        //url:'NewJosephServlet',  
+			url:'/ProblemSolve/JosephProblem',
 	        type:'post',
 	        contentType: "application/json; charset=utf-8",
 	        data: JSON.stringify(json),

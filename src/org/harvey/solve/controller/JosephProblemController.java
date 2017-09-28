@@ -1,10 +1,8 @@
-package org.harvey.solve.servlet;
+package org.harvey.solve.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
 
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -15,44 +13,49 @@ import org.harvey.solve.converter.universalconverter.JsonConverter;
 import org.harvey.solve.dto.Request;
 import org.harvey.solve.dto.Response;
 import org.harvey.solve.exception.IlligalInputException;
+import org.harvey.solve.servlet.NewJosephServlet;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
 
-/**
- * Servlet implementation class NewJosephServlet
- */
-public class NewJosephServlet extends HttpServlet {
-	private static final long serialVersionUID = 1L;
+@Controller
+@RequestMapping("/ProblemSolve")
+public class JosephProblemController {
 	private static Logger log = Logger.getLogger(NewJosephServlet.class);
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public NewJosephServlet() {
-        super();
-    }
-
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	
+	@RequestMapping("/JosephProblem")
+    public void solveJosephProblem(HttpServletRequest request,HttpServletResponse response){  
 		boolean legalInput = false;
+		
 		response.setContentType("application/json");
 		response.setCharacterEncoding("utf-8");
-		PrintWriter out = response.getWriter();
+		PrintWriter out;
 		String result;
+		
+		try {
+			out = response.getWriter();
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			log.error(e1.getMessage());
+			response.setStatus(500);
+			return;
+		}
 		
 		String line="";
 		StringBuffer jsonStr = new StringBuffer();
 		
-		while((line = request.getReader().readLine()) != null){
-			jsonStr.append(line.trim());
+		try {
+			while((line = request.getReader().readLine()) != null){
+				jsonStr.append(line.trim());
+			}
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			log.error(e1.getMessage());
+			response.setStatus(500);
+			return;
 		}
+		
 		legalInput = true;
 		JSONObject jsonObj = new JSONObject(jsonStr.toString());
 		try {
@@ -67,16 +70,22 @@ public class NewJosephServlet extends HttpServlet {
 			try {
 				josephRequest = (Request) converter.fromJson(jsonObj,Request.class);
 			} catch (InstantiationException e) {
+				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} catch (IllegalAccessException e) {
+				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} catch (IllegalArgumentException e) {
+				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} catch (NegativeArraySizeException e) {
+				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} catch (JSONException e) {
+				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			
@@ -86,8 +95,10 @@ public class NewJosephServlet extends HttpServlet {
 			try {
 				responseJsonObj = converter.toJson(josephResponse,Response.class);
 			} catch (IllegalArgumentException e) {
+				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} catch (IllegalAccessException e) {
+				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			result = responseJsonObj.toString();
@@ -100,5 +111,10 @@ public class NewJosephServlet extends HttpServlet {
 		out.print(result);
 		out.flush();
 		out.close();
+    }
+	
+	@RequestMapping("hello")
+	public String helloPage(){
+		return "hello";
 	}
 }

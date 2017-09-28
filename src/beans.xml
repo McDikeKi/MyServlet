@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:myns="http://www.mycompany.com/schema/myns"
+    xsi:schemaLocation="
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.mycompany.com/schema/myns http://www.mycompany.com/schema/myns/myns.xsd">
+
+    <bean id="boyHelloWorld" class="com.harvey.spring.BoyHello"></bean>
+    
+    <bean id="girlHelloWorld" class="com.harvey.spring.GirlHello"></bean>
+    
+    <bean id="helloWorldService" class="com.harvey.spring.HelloWorldService">
+        <property name="helloworld" ref="boyHelloWorld"/>
+    </bean>
+    
+    <bean id="student" class="com.harvey.spring.Student">
+		<property name="name" value="Harvey"/>
+		<property name="gender" value="male"/>
+		<property name="age" value="20"/>
+		<property name="hobby">
+			<list>
+				<value>basketball</value>
+				<value>painting</value>
+				<value>singing</value>
+				<value>fishing</value>
+			</list>	
+		</property>
+		<property name="grade">
+			<map>
+				<entry key="chinese" value="100"></entry>
+				<entry key="math" value="100"></entry>
+				<entry key="english" value="100"></entry>
+			</map>
+		</property>
+	</bean>   
+   
+    <bean id="teacher" class="com.harvey.spring.Teacher">
+   		<constructor-arg name="name" value="Shen"/>		
+   		<constructor-arg name="gender" value="male"/>	
+   		<constructor-arg name="age" value="30"/>	
+   		<constructor-arg name="lesson">
+   			<list>
+   				<value>Data Structure</value>
+   				<value>Compilers Principles</value>
+   			</list>
+   		</constructor-arg>	  		
+    </bean>
+   
+</beans>

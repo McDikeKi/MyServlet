@@ -42,8 +42,8 @@ public class FibonacciServlet extends HttpServlet {
 		response.setContentType("text/html;charset=utf-8");
 		HttpSession session = request.getSession();
 		session.setAttribute("result", list);
-		response.sendRedirect("/solve/FibonacciResult.jsp");
-		//request.getRequestDispatcher("/FibonacciResult.jsp").forward(request, response);
+		response.sendRedirect("/solve/jsp/FibonacciResult.jsp");
+		//request.getRequestDispatcher("/jsp/FibonacciResult.jsp").forward(request, response);
 	}
 
 	/**

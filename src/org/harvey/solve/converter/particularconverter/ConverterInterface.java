@@ -1,4 +1,4 @@
-package org.harvey.solve.converter.converterinterface;
+package org.harvey.solve.converter.particularconverter;
 
 import org.harvey.solve.dto.DataTransferObject;
 import org.json.JSONObject;

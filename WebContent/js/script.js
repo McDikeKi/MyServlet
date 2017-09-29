@@ -20,12 +20,31 @@ function onSubmit(){
 	return true;
 }
 
-function getResult(){
-	//var circletext = $("#circle").val().trim();
+function checkRequest(){
 	var startindextext = $("#startindex").val().trim();
 	var interval = $("#interval").val().trim();
 	var nameNum = $("#nameslist li").length;
-	if(nameNum>0&&startindextext!=""&&interval!=""){
+	if(nameNum<=0&&startindextext===""&&interval===""){
+		return false;
+	}
+	if((!Number.isInteger(Number(startindextext)))||(!Number.isInteger(Number(interval)))){
+		return false;
+	}
+	if(Number(startindextext)<0||Number(interval)<0){
+		return false;
+	}
+	if(Number(startindextext)>=nameNum){
+		return false;
+	}
+	return true;
+}
+
+function getResult(){
+	//var circletext = $("#circle").val().trim();
+	if(!checkRequest()){
+		alert("Illegal input");
+	}
+	else{
 		var json = {};	
 		var request = {};
 		//var persons = circletext.trim().split(",");
@@ -44,7 +63,7 @@ function getResult(){
 		
 		$.ajax({  
 	        //url:'NewJosephServlet',  
-			url:'/ProblemSolve/JosephProblem',
+			url:'ProblemSolve/JosephProblem',
 	        type:'post',
 	        contentType: "application/json; charset=utf-8",
 	        data: JSON.stringify(json),

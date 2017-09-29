@@ -2,6 +2,8 @@ package org.harvey.solve.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -9,6 +11,8 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.log4j.Logger;
 import org.harvey.solve.business.CheckJosephRequest;
 import org.harvey.solve.business.SolveJosephProblem;
+import org.harvey.solve.business.businessimpl.CheckJosephRequestImpl;
+import org.harvey.solve.business.businessimpl.SolveJosephProblemImpl;
 import org.harvey.solve.converter.universalconverter.JsonConverter;
 import org.harvey.solve.dto.Request;
 import org.harvey.solve.dto.Response;
@@ -18,25 +22,24 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 @Controller
-@RequestMapping("/ProblemSolve")
 public class JosephProblemController {
 	private static Logger log = Logger.getLogger(NewJosephServlet.class);
 	
-	@RequestMapping("/JosephProblem")
+	@RequestMapping("/ProblemSolve/JosephProblem")
     public void solveJosephProblem(HttpServletRequest request,HttpServletResponse response){  
 		boolean legalInput = false;
 		
 		response.setContentType("application/json");
 		response.setCharacterEncoding("utf-8");
-		PrintWriter out;
+		PrintWriter out = null;
 		String result;
 		
 		try {
 			out = response.getWriter();
 		} catch (IOException e1) {
-			// TODO Auto-generated catch block
 			log.error(e1.getMessage());
 			response.setStatus(500);
 			return;
@@ -50,18 +53,21 @@ public class JosephProblemController {
 				jsonStr.append(line.trim());
 			}
 		} catch (IOException e1) {
-			// TODO Auto-generated catch block
 			log.error(e1.getMessage());
 			response.setStatus(500);
+			if(out != null){
+				out.close();
+			}
 			return;
 		}
 		
 		legalInput = true;
 		JSONObject jsonObj = new JSONObject(jsonStr.toString());
 		try {
-			CheckJosephRequest.check(jsonObj);
+			CheckJosephRequest checkJosephRequest = new CheckJosephRequestImpl();
+			checkJosephRequest.check(jsonObj);
 		} catch (IlligalInputException e) {
-			log.warn(e.getMessage()+"-"+e.getCause().getMessage());
+			log.error("Illegal input:",e);
 			legalInput = false;
 		}
 		if(legalInput){
@@ -70,36 +76,29 @@ public class JosephProblemController {
 			try {
 				josephRequest = (Request) converter.fromJson(jsonObj,Request.class);
 			} catch (InstantiationException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				log.error("error",e);
 			} catch (IllegalAccessException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				log.error("error",e);
 			} catch (IllegalArgumentException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				log.error("error",e);
 			} catch (NegativeArraySizeException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				log.error("error",e);
 			} catch (ClassNotFoundException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				log.error("error",e);
 			} catch (JSONException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				log.error("error",e);
 			}
 			
-			Response josephResponse = SolveJosephProblem.solve(josephRequest);
+			SolveJosephProblem solveJosephProblem = new SolveJosephProblemImpl();
+			Response josephResponse = solveJosephProblem.solve(josephRequest);
 			
 			JSONObject responseJsonObj = null;
 			try {
 				responseJsonObj = converter.toJson(josephResponse,Response.class);
 			} catch (IllegalArgumentException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				log.error("error",e);
 			} catch (IllegalAccessException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				log.error("error",e);
 			}
 			result = responseJsonObj.toString();
 			response.setStatus(200);
@@ -113,8 +112,17 @@ public class JosephProblemController {
 		out.close();
     }
 	
-	@RequestMapping("hello")
-	public String helloPage(){
-		return "hello";
+	@RequestMapping("/ProblemSolve/hello")
+	public ModelAndView helloPage(){
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("hello");
+		List<String> list = new ArrayList<>();
+		list.add("Ready");
+		list.add("to");
+		list.add("go");	
+		list.add("!");	
+		mav.addObject("words","Hey man,how's the day");
+		mav.addObject("list",list);
+		return mav;
 	}
 }

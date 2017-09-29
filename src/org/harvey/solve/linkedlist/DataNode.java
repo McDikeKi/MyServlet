@@ -1,4 +1,4 @@
-package org.harvey.solve.LinkedList;
+package org.harvey.solve.linkedlist;
 
 public class DataNode {
 	private String name;

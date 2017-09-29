@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.harvey.solve.service.FibonacciSequenceFunction;
+import org.harvey.solve.service.serviceimpl.FibonacciSequenceFunctionImpl;
 
 
 /**
@@ -36,7 +37,8 @@ public class FibonacciServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		
 		int length = Integer.valueOf(request.getParameter("length"));
-		List<BigDecimal> list = FibonacciSequenceFunction
+		FibonacciSequenceFunction fibonacciSequenceFunction = new FibonacciSequenceFunctionImpl();
+		List<BigDecimal> list = fibonacciSequenceFunction
 				.getSequenceResult(length);
 
 		response.setContentType("text/html;charset=utf-8");

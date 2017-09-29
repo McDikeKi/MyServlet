@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.log4j.Logger;
 import org.harvey.solve.business.CheckJosephRequest;
 import org.harvey.solve.business.SolveJosephProblem;
+import org.harvey.solve.business.businessimpl.CheckJosephRequestImpl;
+import org.harvey.solve.business.businessimpl.SolveJosephProblemImpl;
 import org.harvey.solve.converter.universalconverter.JsonConverter;
 import org.harvey.solve.dto.Request;
 import org.harvey.solve.dto.Response;
@@ -56,9 +58,10 @@ public class NewJosephServlet extends HttpServlet {
 		legalInput = true;
 		JSONObject jsonObj = new JSONObject(jsonStr.toString());
 		try {
-			CheckJosephRequest.check(jsonObj);
+			CheckJosephRequest checkJosephRequest = new CheckJosephRequestImpl();
+			checkJosephRequest.check(jsonObj);
 		} catch (IlligalInputException e) {
-			log.warn(e.getMessage()+"-"+e.getCause().getMessage());
+			log.error("Illegal input:",e);
 			legalInput = false;
 		}
 		if(legalInput){
@@ -67,20 +70,21 @@ public class NewJosephServlet extends HttpServlet {
 			try {
 				josephRequest = (Request) converter.fromJson(jsonObj,Request.class);
 			} catch (InstantiationException e) {
-				e.printStackTrace();
+				log.error("error",e);
 			} catch (IllegalAccessException e) {
-				e.printStackTrace();
+				log.error("error",e);
 			} catch (IllegalArgumentException e) {
-				e.printStackTrace();
+				log.error("error",e);
 			} catch (NegativeArraySizeException e) {
-				e.printStackTrace();
+				log.error("error",e);
 			} catch (ClassNotFoundException e) {
-				e.printStackTrace();
+				log.error("error",e);
 			} catch (JSONException e) {
-				e.printStackTrace();
+				log.error("error",e);
 			}
 			
-			Response josephResponse = SolveJosephProblem.solve(josephRequest);
+			SolveJosephProblem solveJosephProblem = new SolveJosephProblemImpl();
+			Response josephResponse = solveJosephProblem.solve(josephRequest);
 			
 			JSONObject responseJsonObj = null;
 			try {

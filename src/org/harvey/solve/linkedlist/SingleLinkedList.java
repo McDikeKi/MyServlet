@@ -1,10 +1,10 @@
-package org.harvey.solve.LinkedList;
+package org.harvey.solve.linkedlist;
 
-public class LinkedList {
+public class SingleLinkedList {
 	private DataNode head;
 	private int length;
 
-	public LinkedList() {
+	public SingleLinkedList() {
 		this.head = null;
 		length = 0;
 	}

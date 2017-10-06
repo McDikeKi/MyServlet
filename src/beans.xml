@@ -1,48 +1,76 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:aop="http://www.springframework.org/schema/aop"
     xsi:schemaLocation="http://www.springframework.org/schema/beans
-        http://www.springframework.org/schema/beans/spring-beans.xsd">
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/aop 
+        http://www.springframework.org/schema/aop/spring-aop.xsd">
 
-    <bean id="boyHelloWorld" class="com.harvey.spring.BoyHello"></bean>
-    
-    <bean id="girlHelloWorld" class="com.harvey.spring.GirlHello"></bean>
-    
-    <bean id="helloWorldService" class="com.harvey.spring.HelloWorldService">
-        <property name="helloworld" ref="boyHelloWorld"/>
-    </bean>
-    
-    <bean id="student" class="com.harvey.spring.Student">
-		<property name="name" value="Harvey"/>
-		<property name="gender" value="male"/>
-		<property name="age" value="20"/>
-		<property name="hobby">
-			<list>
-				<value>basketball</value>
-				<value>painting</value>
-				<value>singing</value>
-				<value>fishing</value>
-			</list>	
-		</property>
-		<property name="grade">
-			<map>
-				<entry key="chinese" value="100"></entry>
-				<entry key="math" value="100"></entry>
-				<entry key="english" value="100"></entry>
-			</map>
-		</property>
-	</bean>   
+	<aop:aspectj-autoproxy/>  
+
+	<bean id="dataTransferObject" class="org.harvey.solve.dto.DataTransferObject"
+		abstract="true"></bean>
+	
+	<bean id="request" class="org.harvey.solve.dto.Request" 
+		parent="dataTransferObject">
+		<property name="circle" ref="circle"/>
+	</bean>
+
+	<bean id="response" class="org.harvey.solve.dto.Response" 
+		parent="dataTransferObject">
+		<constructor-arg name="person" value=""/>
+	</bean>
+
+    <bean id="circle" class="org.harvey.solve.dto.Circle">
+    	<property name="persons">
+    		<list>
+    		</list>
+    	</property>
+    	<property name="start" value="0"/>
+    	<property name="interval" value="1"/>
+    </bean>     
    
-    <bean id="teacher" class="com.harvey.spring.Teacher">
-   		<constructor-arg name="name" value="Shen"/>		
-   		<constructor-arg name="gender" value="male"/>	
-   		<constructor-arg name="age" value="30"/>	
-   		<constructor-arg name="lesson">
-   			<list>
-   				<value>Data Structure</value>
-   				<value>Compilers Principles</value>
-   			</list>
-   		</constructor-arg>	  		
-    </bean>
+   	<bean id="dataNode" class="org.harvey.solve.linkedlist.DataNode">
+   		<property name="name" value=""/>
+   		<property name="next" ref="dataNode"/>
+   	</bean>
+   	
+   	<bean id="singleLinkedList" class="org.harvey.solve.linkedlist.SingleLinkedList">
+   		<property name="head" ref="dataNode"/>
+   		<property name="length" value="0"/>
+   	</bean>
+   	
+   	<bean id="serviceMethodTime" class="org.harvey.solve.timelog.ServiceMethodTime"/>
+   	
+   	<bean id="businessMethodTime" class="org.harvey.solve.timelog.BusinessMethodTime"/>
+   	
+   	<aop:config>
+   		<aop:pointcut expression="execution(* org.harvey.solve.service.serviceimpl.*.*(..))" id="timeLogPoint"/>
+   		
+   		<aop:aspect ref="serviceMethodTime">
+         
+        	<aop:before method="showEnterTime" pointcut-ref="timeLogPoint" />
+         
+        	<aop:after-returning method="showExitTime" pointcut-ref="timeLogPoint"/>
+        
+        </aop:aspect>
+   	</aop:config>
    
+   	<bean id="fibonacciSequenceFunction" class="org.harvey.solve.service.serviceimpl.FibonacciSequenceFunctionImpl"/>
+	
+	<bean id="josephInputCheck" class="org.harvey.solve.service.serviceimpl.JosephInputCheckImpl"/>
+	
+	<bean id="josephProblemFunction" class="org.harvey.solve.service.serviceimpl.JosephProblemFunctionImpl"/>
+	
+	<bean id="checkJosephRequest" class="org.harvey.solve.business.businessimpl.CheckJosephRequestImpl"/>
+	
+	<bean id="solveJosephProblem" class="org.harvey.solve.business.businessimpl.SolveJosephProblemImpl"/>
+	
+	<bean id="requestConverter" class="org.harvey.solve.converter.particularconverter.particularconverterimpl.RequestConverter"/>
+	
+	<bean id="responseConverter" class="org.harvey.solve.converter.particularconverter.particularconverterimpl.ResponseConverter"/>
+	
+	<bean id="jsonConverter" class="org.harvey.solve.converter.universalconverter.JsonConverter"/>	
+	
 </beans>

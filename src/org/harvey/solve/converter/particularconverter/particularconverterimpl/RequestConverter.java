@@ -2,16 +2,20 @@ package org.harvey.solve.converter.particularconverter.particularconverterimpl;
 
 import java.util.List;
 
-import org.harvey.solve.converter.particularconverter.ConverterInterface;
+import org.harvey.solve.converter.particularconverter.Converter;
 import org.harvey.solve.dto.Circle;
 import org.harvey.solve.dto.Request;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-public class RequestConverter implements ConverterInterface<Request>{
+public class RequestConverter implements Converter<Request>{
 
 	@Override
 	public Request fromJson(JSONObject jsonObj) {
+		ApplicationContext context = new ClassPathXmlApplicationContext("beans.xml");
 		JSONObject circleObj = jsonObj.getJSONObject("circle");
 		
 		@SuppressWarnings({ "unchecked", "rawtypes" })
@@ -19,8 +23,12 @@ public class RequestConverter implements ConverterInterface<Request>{
 		int start = circleObj.getInt("start");
 		int interval = circleObj.getInt("interval");
 		
-		Circle circle = new Circle((String[]) persons.toArray(), start, interval);
+		Circle circle = (Circle) context.getBean("circle");
+		circle.setInterval(interval);
+		circle.setStart(start);
+		circle.setPersons((String[])persons.toArray());
 		
+		((ConfigurableApplicationContext)context).close();
 		return new Request(circle);
 	}
 

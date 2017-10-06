@@ -11,14 +11,15 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.log4j.Logger;
 import org.harvey.solve.business.CheckJosephRequest;
 import org.harvey.solve.business.SolveJosephProblem;
-import org.harvey.solve.business.businessimpl.CheckJosephRequestImpl;
-import org.harvey.solve.business.businessimpl.SolveJosephProblemImpl;
 import org.harvey.solve.converter.universalconverter.JsonConverter;
 import org.harvey.solve.dto.Request;
 import org.harvey.solve.dto.Response;
 import org.harvey.solve.exception.IlligalInputException;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.context.ConfigurableApplicationContext;
 
 /**
  * Servlet implementation class NewJosephServlet
@@ -43,6 +44,7 @@ public class NewJosephServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		ApplicationContext context = new ClassPathXmlApplicationContext("beans.xml");
 		boolean legalInput = false;
 		response.setContentType("application/json");
 		response.setCharacterEncoding("utf-8");
@@ -58,14 +60,15 @@ public class NewJosephServlet extends HttpServlet {
 		legalInput = true;
 		JSONObject jsonObj = new JSONObject(jsonStr.toString());
 		try {
-			CheckJosephRequest checkJosephRequest = new CheckJosephRequestImpl();
+			CheckJosephRequest checkJosephRequest = 
+					(CheckJosephRequest) context.getBean("checkJosephRequest");
 			checkJosephRequest.check(jsonObj);
 		} catch (IlligalInputException e) {
 			log.error("Illegal input:",e);
 			legalInput = false;
 		}
 		if(legalInput){
-			JsonConverter converter = new JsonConverter();
+			JsonConverter converter = (JsonConverter) context.getBean("jsonConverter");
 			Request josephRequest = null;
 			try {
 				josephRequest = (Request) converter.fromJson(jsonObj,Request.class);
@@ -83,7 +86,8 @@ public class NewJosephServlet extends HttpServlet {
 				log.error("error",e);
 			}
 			
-			SolveJosephProblem solveJosephProblem = new SolveJosephProblemImpl();
+			SolveJosephProblem solveJosephProblem = 
+					(SolveJosephProblem) context.getBean("solveJosephProblem");
 			Response josephResponse = solveJosephProblem.solve(josephRequest);
 			
 			JSONObject responseJsonObj = null;
@@ -104,5 +108,6 @@ public class NewJosephServlet extends HttpServlet {
 		out.print(result);
 		out.flush();
 		out.close();
+		((ConfigurableApplicationContext)context).close();
 	}
 }

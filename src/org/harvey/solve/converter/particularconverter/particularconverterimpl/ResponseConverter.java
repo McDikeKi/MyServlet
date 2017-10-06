@@ -1,14 +1,21 @@
 package org.harvey.solve.converter.particularconverter.particularconverterimpl;
 
-import org.harvey.solve.converter.particularconverter.ConverterInterface;
+import org.harvey.solve.converter.particularconverter.Converter;
 import org.harvey.solve.dto.Response;
 import org.json.JSONObject;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-public class ResponseConverter implements ConverterInterface<Response>{
+public class ResponseConverter implements Converter<Response>{
 
 	@Override
 	public Response fromJson(JSONObject jsonObj) {
-		return new Response(jsonObj.getString("name"));
+		ApplicationContext context = new ClassPathXmlApplicationContext("beans.xml");
+		Response response = (Response) context.getBean("response");
+		response.setPerson(jsonObj.getString("name"));
+		((ConfigurableApplicationContext)context).close();
+		return response;
 	}
 
 	@Override

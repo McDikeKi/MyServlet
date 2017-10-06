@@ -11,8 +11,6 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.log4j.Logger;
 import org.harvey.solve.business.CheckJosephRequest;
 import org.harvey.solve.business.SolveJosephProblem;
-import org.harvey.solve.business.businessimpl.CheckJosephRequestImpl;
-import org.harvey.solve.business.businessimpl.SolveJosephProblemImpl;
 import org.harvey.solve.converter.universalconverter.JsonConverter;
 import org.harvey.solve.dto.Request;
 import org.harvey.solve.dto.Response;
@@ -20,6 +18,9 @@ import org.harvey.solve.exception.IlligalInputException;
 import org.harvey.solve.servlet.NewJosephServlet;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -29,7 +30,8 @@ public class JosephProblemController {
 	private static Logger log = Logger.getLogger(NewJosephServlet.class);
 	
 	@RequestMapping("/ProblemSolve/JosephProblem")
-    public void solveJosephProblem(HttpServletRequest request,HttpServletResponse response){  
+    public void solveJosephProblem(HttpServletRequest request,HttpServletResponse response){ 
+		ApplicationContext context = new ClassPathXmlApplicationContext("beans.xml");
 		boolean legalInput = false;
 		
 		response.setContentType("application/json");
@@ -42,6 +44,7 @@ public class JosephProblemController {
 		} catch (IOException e1) {
 			log.error(e1.getMessage());
 			response.setStatus(500);
+			((ConfigurableApplicationContext)context).close();
 			return;
 		}
 		
@@ -58,20 +61,22 @@ public class JosephProblemController {
 			if(out != null){
 				out.close();
 			}
+			((ConfigurableApplicationContext)context).close();
 			return;
 		}
 		
 		legalInput = true;
 		JSONObject jsonObj = new JSONObject(jsonStr.toString());
 		try {
-			CheckJosephRequest checkJosephRequest = new CheckJosephRequestImpl();
+			CheckJosephRequest checkJosephRequest = 
+					(CheckJosephRequest) context.getBean("checkJosephRequest");
 			checkJosephRequest.check(jsonObj);
 		} catch (IlligalInputException e) {
 			log.error("Illegal input:",e);
 			legalInput = false;
 		}
 		if(legalInput){
-			JsonConverter converter = new JsonConverter();
+			JsonConverter converter = (JsonConverter) context.getBean("jsonConverter");
 			Request josephRequest = null;
 			try {
 				josephRequest = (Request) converter.fromJson(jsonObj,Request.class);
@@ -89,7 +94,8 @@ public class JosephProblemController {
 				log.error("error",e);
 			}
 			
-			SolveJosephProblem solveJosephProblem = new SolveJosephProblemImpl();
+			SolveJosephProblem solveJosephProblem = 
+					(SolveJosephProblem) context.getBean("solveJosephProblem");
 			Response josephResponse = solveJosephProblem.solve(josephRequest);
 			
 			JSONObject responseJsonObj = null;
@@ -110,6 +116,7 @@ public class JosephProblemController {
 		out.print(result);
 		out.flush();
 		out.close();
+		((ConfigurableApplicationContext)context).close();
     }
 	
 	@RequestMapping("/ProblemSolve/hello")
@@ -119,8 +126,8 @@ public class JosephProblemController {
 		List<String> list = new ArrayList<>();
 		list.add("Ready");
 		list.add("to");
-		list.add("go");	
-		list.add("!");	
+		list.add("go");
+		list.add("!");
 		mav.addObject("words","Hey man,how's the day");
 		mav.addObject("list",list);
 		return mav;

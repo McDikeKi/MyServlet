@@ -17,8 +17,16 @@ public class SingleLinkedList {
 		return length;
 	}
 	
+	public void setLength(int length){
+		this.length = length;
+	}
+	
 	public DataNode getHead() {
 		return head;
+	}
+	
+	public void setHead(DataNode head){
+		this.head = head;
 	}
 	
 	public void append(String name){

@@ -1,4 +1,4 @@
-package org.harvey.solve.converter.particularconverter.particularconverterimpl;
+package org.harvey.solve.converter.particularconverter.impl;
 
 import java.util.List;
 

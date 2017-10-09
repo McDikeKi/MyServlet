@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.harvey.solve.service.FibonacciSequenceFunction;
-import org.harvey.solve.service.serviceimpl.FibonacciSequenceFunctionImpl;
+import org.harvey.solve.service.impl.FibonacciSequenceFunctionImpl;
 
 
 /**

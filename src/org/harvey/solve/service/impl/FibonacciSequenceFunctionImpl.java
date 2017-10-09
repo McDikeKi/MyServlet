@@ -1,10 +1,11 @@
-package org.harvey.solve.service.serviceimpl;
+package org.harvey.solve.service.impl;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.harvey.solve.service.FibonacciSequenceFunction;
+import org.springframework.stereotype.Service;
 
 /**
  * 
@@ -13,6 +14,8 @@ import org.harvey.solve.service.FibonacciSequenceFunction;
  *         This is the class created to solve the fibonacci sequence problem
  * 
  */
+
+@Service
 public class FibonacciSequenceFunctionImpl implements FibonacciSequenceFunction {
 
 	/**
@@ -20,6 +23,7 @@ public class FibonacciSequenceFunctionImpl implements FibonacciSequenceFunction 
 	 * length of the fibonacci sequence @return a list that contains the
 	 * fibonacci sequence @exception
 	 */
+	
 	public List<BigDecimal> getSequenceResult(int num) {
 		final int ZERO = 0;
 		final int FIRST_NUM = 1;

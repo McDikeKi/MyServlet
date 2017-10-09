@@ -24,9 +24,42 @@
     <!-- configure the InternalResourceViewResolver -->
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver" 
             id="internalResourceViewResolver">
-        <!-- 前缀 -->
         <property name="prefix" value="/WEB-INF/jsp/" />
-        <!-- 后缀 -->
         <property name="suffix" value=".jsp" />
     </bean>
+    
+    <bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
+        <property name="messageConverters">
+            <list>
+                <ref bean="jsonHttpMessageConverter" />
+            </list>
+        </property>
+    </bean>
+
+    <bean id="jsonHttpMessageConverter" class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+        <property name="supportedMediaTypes">
+            <list>
+                <value>application/json;charset=UTF-8</value>
+            </list>
+        </property>
+    </bean>
+    
+    <bean id="fibonacciSequenceFunction" class="org.harvey.solve.service.impl.FibonacciSequenceFunctionImpl"/>
+	
+	<bean id="josephInputCheck" class="org.harvey.solve.service.impl.JosephInputCheckImpl"/>
+	
+	<bean id="josephProblemFunction" class="org.harvey.solve.service.impl.JosephProblemFunctionImpl"/>
+	
+	<bean id="solveJosephProblem" class="org.harvey.solve.business.impl.SolveJosephProblemImpl">
+		<property name="josephProblemFunction" ref="josephProblemFunction"></property>
+	</bean>	
+	
+	<bean id="checkJosephRequest" class="org.harvey.solve.business.impl.CheckJosephRequestImpl">
+		<property name="josephInputCheck" ref="josephInputCheck"></property>
+	</bean>	
+	
+    <bean id="josephProblemController" class="org.harvey.solve.controller.JosephProblemController">
+		<property name="solveJosephProblem" ref="solveJosephProblem"/>
+	</bean>
+	
 </beans>

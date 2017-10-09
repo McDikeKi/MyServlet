@@ -45,6 +45,9 @@ function getResult(){
 		alert("Illegal input");
 	}
 	else{
+		var startindextext = $("#startindex").val().trim();
+		var interval = $("#interval").val().trim();
+		var nameNum = $("#nameslist li").length;
 		var json = {};	
 		var request = {};
 		//var persons = circletext.trim().split(",");

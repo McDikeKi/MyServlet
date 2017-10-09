@@ -1,11 +1,8 @@
-package org.harvey.solve.service.serviceimpl;
+package org.harvey.solve.service.impl;
 
 import org.harvey.solve.linkedlist.DataNode;
 import org.harvey.solve.linkedlist.SingleLinkedList;
 import org.harvey.solve.service.JosephProblemFunction;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.ConfigurableApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 /**
  * 
@@ -14,6 +11,8 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
  *         This is the class created to solve the joseph problem
  * 
  */
+
+
 public class JosephProblemFunctionImpl implements JosephProblemFunction {
 	/**
 	 * /* This is the algorithm of the joseph problem
@@ -29,9 +28,8 @@ public class JosephProblemFunctionImpl implements JosephProblemFunction {
 	public String getFinalElement(String[] liStrings, int startIndex, int interval) {
 		final int FINAL_SIZE = 1;
 		int index = startIndex;
-		ApplicationContext context = new ClassPathXmlApplicationContext("beans.xml");
 		
-		SingleLinkedList nameList = (SingleLinkedList) context.getBean("singleLinkedList");
+		SingleLinkedList nameList = new SingleLinkedList();
 		for (String li : liStrings) {
 			nameList.append(li);
 		}
@@ -47,7 +45,6 @@ public class JosephProblemFunctionImpl implements JosephProblemFunction {
 			pointer = pointer.next();
 			nameList.remove(node);
 		}
-		((ConfigurableApplicationContext)context).close();
 		return nameList.getHead().getName();
 	}
 }

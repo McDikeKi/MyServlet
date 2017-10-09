@@ -1,5 +1,6 @@
 <%@page import="java.math.BigDecimal"%>
 <%@page import="java.util.ArrayList"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -23,14 +24,9 @@
 	<body>
 		<p>
 			<span class=\"span-result\">Fibonacci Sequence:</span>
-			<ul>
-				<%
-					ArrayList<BigDecimal> result= (ArrayList<BigDecimal>) session.getAttribute("result");
-					for (int i = 0; i < result.size(); i++) {
-						out.println("<li class=\"li-result\">" + result.get(i) + "</li>");
-					}		
-				%>
-			</ul>
+			<c:forEach items="${list}" var="node">
+				<c:out value="${node}"></c:out>	<br/>	
+			</c:forEach>
 	</p>
 	</body>
 </html>

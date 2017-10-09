@@ -7,46 +7,14 @@
         http://www.springframework.org/schema/aop 
         http://www.springframework.org/schema/aop/spring-aop.xsd">
 
-	<aop:aspectj-autoproxy/>  
-
-	<bean id="dataTransferObject" class="org.harvey.solve.dto.DataTransferObject"
-		abstract="true"></bean>
-	
-	<bean id="request" class="org.harvey.solve.dto.Request" 
-		parent="dataTransferObject">
-		<property name="circle" ref="circle"/>
-	</bean>
-
-	<bean id="response" class="org.harvey.solve.dto.Response" 
-		parent="dataTransferObject">
-		<constructor-arg name="person" value=""/>
-	</bean>
-
-    <bean id="circle" class="org.harvey.solve.dto.Circle">
-    	<property name="persons">
-    		<list>
-    		</list>
-    	</property>
-    	<property name="start" value="0"/>
-    	<property name="interval" value="1"/>
-    </bean>     
-   
-   	<bean id="dataNode" class="org.harvey.solve.linkedlist.DataNode">
-   		<property name="name" value=""/>
-   		<property name="next" ref="dataNode"/>
-   	</bean>
-   	
-   	<bean id="singleLinkedList" class="org.harvey.solve.linkedlist.SingleLinkedList">
-   		<property name="head" ref="dataNode"/>
-   		<property name="length" value="0"/>
-   	</bean>
-   	
+	<aop:aspectj-autoproxy/>     
+   	  	
    	<bean id="serviceMethodTime" class="org.harvey.solve.timelog.ServiceMethodTime"/>
    	
    	<bean id="businessMethodTime" class="org.harvey.solve.timelog.BusinessMethodTime"/>
    	
    	<aop:config>
-   		<aop:pointcut expression="execution(* org.harvey.solve.service.serviceimpl.*.*(..))" id="timeLogPoint"/>
+   		<aop:pointcut expression="execution(* org.harvey.solve.service.impl.*.*(..))" id="timeLogPoint"/>
    		
    		<aop:aspect ref="serviceMethodTime">
          
@@ -57,20 +25,6 @@
         </aop:aspect>
    	</aop:config>
    
-   	<bean id="fibonacciSequenceFunction" class="org.harvey.solve.service.serviceimpl.FibonacciSequenceFunctionImpl"/>
-	
-	<bean id="josephInputCheck" class="org.harvey.solve.service.serviceimpl.JosephInputCheckImpl"/>
-	
-	<bean id="josephProblemFunction" class="org.harvey.solve.service.serviceimpl.JosephProblemFunctionImpl"/>
-	
-	<bean id="checkJosephRequest" class="org.harvey.solve.business.businessimpl.CheckJosephRequestImpl"/>
-	
-	<bean id="solveJosephProblem" class="org.harvey.solve.business.businessimpl.SolveJosephProblemImpl"/>
-	
-	<bean id="requestConverter" class="org.harvey.solve.converter.particularconverter.particularconverterimpl.RequestConverter"/>
-	
-	<bean id="responseConverter" class="org.harvey.solve.converter.particularconverter.particularconverterimpl.ResponseConverter"/>
-	
-	<bean id="jsonConverter" class="org.harvey.solve.converter.universalconverter.JsonConverter"/>	
+
 	
 </beans>

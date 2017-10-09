@@ -11,10 +11,7 @@
     <servlet-name>joseph</servlet-name>
     <servlet-class>org.harvey.solve.servlet.JosephServlet</servlet-class>
   </servlet>
-  <servlet>
-    <servlet-name>newjoseph</servlet-name>
-    <servlet-class>org.harvey.solve.servlet.NewJosephServlet</servlet-class>
-  </servlet>
+  
   <servlet>
 	    <servlet-name>springmvc</servlet-name>
 	    <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
@@ -37,9 +34,5 @@
 	<servlet-mapping>
 	    <servlet-name>joseph</servlet-name>
 	    <url-pattern>/JosephResult</url-pattern>
-	</servlet-mapping>
-	<servlet-mapping>
-	    <servlet-name>newjoseph</servlet-name>
-	    <url-pattern>/NewJosephServlet</url-pattern>
 	</servlet-mapping>
 </web-app>

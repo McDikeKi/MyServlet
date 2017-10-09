@@ -1,4 +1,4 @@
-package org.harvey.solve.converter.particularconverter.particularconverterimpl;
+package org.harvey.solve.converter.particularconverter.impl;
 
 import org.harvey.solve.converter.particularconverter.Converter;
 import org.harvey.solve.dto.Response;

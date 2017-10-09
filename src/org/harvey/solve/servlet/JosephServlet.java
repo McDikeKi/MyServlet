@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.harvey.solve.service.JosephProblemFunction;
-import org.harvey.solve.service.serviceimpl.JosephProblemFunctionImpl;
+import org.harvey.solve.service.impl.JosephProblemFunctionImpl;
 
 
 /**

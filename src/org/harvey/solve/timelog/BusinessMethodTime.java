@@ -13,7 +13,7 @@ import org.aspectj.lang.annotation.Pointcut;
 public class BusinessMethodTime {
 	Logger log = Logger.getLogger(ServiceMethodTime.class);
 	
-	@Pointcut("execution(* org.harvey.solve.business.businessimpl.*.*(..))")
+	@Pointcut("execution(* org.harvey.solve.business.impl.*.*(..))")
 	public void businessMethod(){
 		
 	}

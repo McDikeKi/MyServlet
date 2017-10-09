@@ -1,4 +1,4 @@
-package org.harvey.solve.service.serviceimpl;
+package org.harvey.solve.service.impl;
 
 import org.harvey.solve.exception.JsonFieldWrongTypeException;
 import org.harvey.solve.exception.NullValueException;
@@ -6,7 +6,9 @@ import org.harvey.solve.exception.WrongValueException;
 import org.harvey.solve.service.JosephInputCheck;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.springframework.stereotype.Service;
 
+@Service
 public class JosephInputCheckImpl implements JosephInputCheck {
 	private static final String MESSAGE_CIRCLE_PARSING_ERROR = "Circle field error in json";
 	private static final String MESSAGE_START_PARSING_ERROR = "Start field error in json";

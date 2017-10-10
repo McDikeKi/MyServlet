@@ -50,6 +50,10 @@
 	
 	<bean id="josephProblemFunction" class="org.harvey.solve.service.impl.JosephProblemFunctionImpl"/>
 	
+	<bean id="solveFibonacciProblem" class="org.harvey.solve.business.impl.SolveFibonacciProblemImpl">
+		<property name="fibonacciSequenceFunction" ref="fibonacciSequenceFunction"></property>
+	</bean>	
+	
 	<bean id="solveJosephProblem" class="org.harvey.solve.business.impl.SolveJosephProblemImpl">
 		<property name="josephProblemFunction" ref="josephProblemFunction"></property>
 	</bean>	
@@ -60,6 +64,10 @@
 	
     <bean id="josephProblemController" class="org.harvey.solve.controller.JosephProblemController">
 		<property name="solveJosephProblem" ref="solveJosephProblem"/>
+	</bean>
+	
+	<bean id="fibonacciProblemController" class="org.harvey.solve.controller.FibonacciProblemController">
+		<property name="solveFibonacciProblem" ref="solveFibonacciProblem"/>
 	</bean>
 	
 </beans>

@@ -23,6 +23,13 @@ public class JosephProblemController {
 		this.solveJosephProblem = solveJosephProblem;
 	}
 
+	@RequestMapping("/ProblemInput")
+	public ModelAndView josephProblemInput(){
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("JosephInputNew");
+		return mav;
+	}
+	
 	@RequestMapping(value="/ProblemSolve",method=RequestMethod.POST)
 	@ResponseBody
     public Object solveJosephProblem(@RequestBody Request josephRequest ){ 

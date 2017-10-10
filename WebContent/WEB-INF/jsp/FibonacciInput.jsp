@@ -4,15 +4,14 @@
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<title>Fibonacci Problem Solve</title>
+	<title>Fibonacci Problem Input</title>
 </head>
 <body>
-	<form action="http://localhost:8080/solve/FibonacciResult"
+	<form action="http://localhost:8080/solve/FibonacciProblem/ProblemSolve"
 		method="get">
 		<p style="display:inline; font-size: 15px; font-weight: bold">Length:</p>
 		<input style="width: 50px; text-align: right" type="text"
 			name="length" /> <input type="submit" value="submit" />
-
 	</form>
 </body>
 </html>

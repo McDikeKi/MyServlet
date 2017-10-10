@@ -5,9 +5,9 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 	<title>Insert title here</title>
-	<link rel="stylesheet" type="text/css" href="css/mycss.css">	
-	<script src="js/jquery.js"></script>
-	<script type="text/javascript" src="js/script.js"></script>	
+	<link rel="stylesheet" type="text/css" href="../css/mycss.css">	
+	<script src="../js/jquery.js"></script>
+	<script type="text/javascript" src="../js/script.js"></script>	
 </head>
 <body class="body-background">
 	<div class="div-background">

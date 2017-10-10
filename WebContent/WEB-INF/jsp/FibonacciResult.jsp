@@ -8,24 +8,12 @@
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 		<title>Fibonacci Result</title>
-		<style type="text/css">
-			.span-result{
-				font-size:20px;
-				font-weight:bold;
-				margin-left:40px
-			}
-			.li-result{
-				font-size:20px;
-				font-weight:bold;
-				list-style-type:none
-			}
-		</style>
 	</head>
 	<body>
 		<p>
-			<span class=\"span-result\">Fibonacci Sequence:</span>
+			<span>Fibonacci Sequence:</span>
 			<c:forEach items="${list}" var="node">
-				<c:out value="${node}"></c:out>	<br/>	
+				<br/> <c:out value="${node}"></c:out>	
 			</c:forEach>
 	</p>
 	</body>

@@ -10,8 +10,10 @@
 	<body>
 		<p>Hello World</p>
 		<p>${words}</p>
-		<c:forEach items="${list}" var="node">
-			<c:out value="${node}"></c:out>		
-		</c:forEach>
+		<ul>	
+			<c:forEach items="${list}" var="node">
+				<li>${node}</li>
+			</c:forEach>
+		</ul>	
 	</body>
 </html>

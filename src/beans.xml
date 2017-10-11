@@ -12,7 +12,7 @@
    	<bean id="serviceMethodTime" class="org.harvey.solve.timelog.ServiceMethodTime"/>
    	
    	<bean id="businessMethodTime" class="org.harvey.solve.timelog.BusinessMethodTime"/>
-   	
+
    	<aop:config>
    		<aop:pointcut expression="execution(* org.harvey.solve.service.impl.*.*(..))" id="timeLogPoint"/>
    		

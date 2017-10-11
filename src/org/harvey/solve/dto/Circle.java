@@ -16,11 +16,11 @@ public class Circle {
 	private List<String> persons;
 	
 	@Mapping(jsonFieldName = "start")
-	@Min(value = 0 ,message="start can't be less than 1")
+	@Min(value = 0 ,message="start can't be less than 0")
 	private Integer start;
 	
 	@Mapping(jsonFieldName = "interval")
-	@Min(value = 0 ,message="start can't be less than 1")
+	@Min(value = 1 ,message="interval can't be less than 1")
 	private Integer interval;
 	
 	public Circle() {

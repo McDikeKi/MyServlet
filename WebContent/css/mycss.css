@@ -50,7 +50,7 @@
 }
 
 .li-input{
-	margin-top:20px;
+	margin-top:35px;
 }
 
 .li-buttons{
@@ -303,4 +303,14 @@
 	font-family:Arial;
 	display:none;
 }
-	
+
+#inputForm label.error{
+	float:right;
+    color:Red;
+    height:30px;
+    display:inline-block;
+    font-size:15px;
+    font-family:Arial;
+    margin-right:411px;
+    margin-top:2px;
+}

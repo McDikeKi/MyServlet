@@ -1,6 +1,8 @@
 package org.harvey.solve.service;
 
+import java.util.List;
+
 public interface JosephProblemFunction{
 
-	public String getFinalElement(String[] liStrings, int startIndex,int interval);
+	public String getFinalElement(List<String> liStrings, int startIndex,int interval);
 }

@@ -26,7 +26,7 @@ public class RequestConverter implements Converter<Request>{
 		Circle circle = (Circle) context.getBean("circle");
 		circle.setInterval(interval);
 		circle.setStart(start);
-		circle.setPersons((String[])persons.toArray());
+		circle.setPersons(persons);
 		
 		((ConfigurableApplicationContext)context).close();
 		return new Request(circle);

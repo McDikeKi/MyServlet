@@ -8,6 +8,51 @@ var idAccumulator=1;
 var insertId="";
 var renameId="";
 
+
+$(document).ready(function(){
+	
+	$("#names").append('<li class="li-name"><input class="input-name" type="text" onblur="addName(this)"/></li>');
+	
+	$("#nameinput").keyup(function(e){
+        if(e.keyCode == 13)
+        	this.blur();
+    });  
+	
+	$("#inputForm").validate({
+		invalidHandler : function(){
+			return false;
+		},
+		submitHandler : function(){
+			getResult();
+			return false;
+		},
+		rules: {
+			startindex: {
+			    required: true,
+			    digits:true,
+			    min:0
+			},
+		   	interval: {
+			   	required: true,
+			   	digits:true,
+			   	min:1
+		   	}
+		},
+		messages: {
+			startindex: {
+				required: "Start is required",
+				digits:"Please enter only digits",
+				min:"Must be greater than or equal to 0"
+			},
+			interval: {
+		        required: "Interval is required",
+		        digits:"Please enter only digits",
+		        min:"Must be greater than or equal to 1"
+			}
+		}
+	});		
+});
+
 function onSubmit(){
 	var requestStr="";
 	$("li").each(function(){
@@ -309,19 +354,6 @@ function addName(input){
 	$('#circle').val(circleText);
 	
 }
-
-
-
-$(document).ready(function(){
-	
-	$("#names").append('<li class="li-name"><input class="input-name" type="text" onblur="addName(this)"/></li>');
-	
-	$("#nameinput").keyup(function(e){
-        if(e.keyCode == 13)
-        	this.blur();
-    });     
-			
-});
 
 function append(){
 	$("#nameinput").css("display","block");

@@ -4,56 +4,59 @@
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-	<title>Insert title here</title>
+	<title>Joseph Problem Input</title>
 	<link rel="stylesheet" type="text/css" href="../css/mycss.css">	
 	<script src="../js/jquery.js"></script>
+	<script src="../js/jquery.validate.min.js"></script>
 	<script type="text/javascript" src="../js/script.js"></script>	
 </head>
 <body class="body-background">
 	<div class="div-background">
-		<ul class="ul-input">
-			<li class="li-title">Joseph Problem Solve</li>
-			<li class="li-input">
-				<div>
-					<label class="label-tag">Start Index</label>
-					<input class="input-text" type="text" id="startindex"/>
-				</div>
-			</li>
-			<li class="li-input">
-				<div>
-					<label class="label-tag">Interval</label>
-					<input class="input-text" type="text" id="interval"/>
-				</div>
-			</li>
-			<li class="li-input">
-				<div>
-					<label class="label-names-tag">Names</label>
-					<ol class="ol-name" id="nameslist">	</ol>
-				</div>
-			</li>
-			<li>
-				<div class="div-input-buttons">
-						<input class="input-name-field" type="text" id="nameinput" disabled="disabled" onblur="blurfunction()"/>
-						<div class="div-append-clear">
-							<button class="button-append" type="button" id="appendbt" onclick="append()">Append</button>
-							<button class="button-clear" type="button" id="clearbt" onclick="clearAll()">Clear</button>
-						</div>
-				</div> 
-			</li>
-		</ul>
-		<ul class="ul-result">
-			<li class="li-input">
-				<div>
-					<label class="label-tag">Result</label>
-					<p class="p-result" id="resultinput">&nbsp;</p>
-				</div>
-			</li>
-			<li class="li-input">
-				<div>
-					<button class="submit-newjoseph" type="button" id="newSubmit" onclick="getResult()">Calculate</button>
-				</div>
-			</li>
-		</ul>
+		<form id="inputForm" method="POST">  
+			<ul class="ul-input">
+				<li class="li-title">Joseph Problem Solve</li>
+				<li class="li-input">
+					<div>
+						<label class="label-tag">Start Index</label>
+						<input class="input-text" type="text" id="startindex" name="startindex"/>
+					</div>
+				</li>
+				<li class="li-input">
+					<div>
+						<label class="label-tag">Interval</label>
+						<input class="input-text" type="text" id="interval" name="interval"/>
+					</div>
+				</li>
+				<li class="li-input">
+					<div>
+						<label class="label-names-tag">Names</label>
+						<ol class="ol-name" id="nameslist">	</ol>
+					</div>
+				</li>
+				<li>
+					<div class="div-input-buttons">
+							<input class="input-name-field" type="text" id="nameinput" disabled="disabled" onblur="blurfunction()"/>
+							<div class="div-append-clear">
+								<button class="button-append" type="button" id="appendbt" onclick="append()">Append</button>
+								<button class="button-clear" type="button" id="clearbt" onclick="clearAll()">Clear</button>
+							</div>
+					</div> 
+				</li>
+			</ul>
+			<ul class="ul-result">
+				<li class="li-input">
+					<div>
+						<label class="label-tag">Result</label>
+						<p class="p-result" id="resultinput">&nbsp;</p>
+					</div>
+				</li>
+				<li class="li-input">
+					<div>
+						<input class="submit-newjoseph" type="submit" id="newSubmit" value="Calculate"/>
+					</div>
+				</li>
+			</ul>
+		</form>
 	</div>
 </body>
 </html>

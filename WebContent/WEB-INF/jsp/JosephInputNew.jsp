@@ -35,7 +35,7 @@
 				</li>
 				<li>
 					<div class="div-input-buttons">
-							<input class="input-name-field" type="text" id="nameinput" disabled="disabled" onblur="blurfunction()"/>
+							<input class="input-name-field ignore" type="text" id="nameinput" disabled="disabled" onblur="blurfunction()"/>
 							<div class="div-append-clear">
 								<button class="button-append" type="button" id="appendbt" onclick="append()">Append</button>
 								<button class="button-clear" type="button" id="clearbt" onclick="clearAll()">Clear</button>

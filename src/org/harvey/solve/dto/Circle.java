@@ -5,28 +5,32 @@ import java.util.List;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import org.harvey.solve.annotation.Mapping;
+import org.harvey.solve.validator.ListNoSameName;
 import org.harvey.solve.validator.ListNotHasNull;
 import org.harvey.solve.validator.MinLength;
 
 public class Circle {
 	@Mapping(jsonFieldName = "persons")
-	@NotNull(message="persons can't be null")
-	@MinLength(value=1,message="persons's size can't be 0")
-	@ListNotHasNull(message="persons can't have a null element")
+	@NotNull(message="Persons can't be null")
+	@MinLength(value=1,message="Persons size can't be 0")
+	@ListNotHasNull(message="Persons can't have a null element")
+	@ListNoSameName(message="Persons can't have same names")
 	private List<String> persons;
 	
 	@Mapping(jsonFieldName = "start")
-	@Min(value = 0 ,message="start can't be less than 0")
+	@NotNull(message="Start can't be null")
+	@Min(value = 0 ,message="Start can't be less than 0")
 	private Integer start;
 	
 	@Mapping(jsonFieldName = "interval")
-	@Min(value = 1 ,message="interval can't be less than 1")
+	@NotNull(message="Interval can't be null")
+	@Min(value = 1 ,message="Interval can't be less than 1")
 	private Integer interval;
 	
 	public Circle() {
 		this.persons = null;
-		this.start = 0;
-		this.interval = 0;
+		this.start = null;
+		this.interval = null;
 	}
 	
 	public Circle(List<String> persons, int start, int interval) {
@@ -44,19 +48,19 @@ public class Circle {
 		this.persons = persons;
 	}
 
-	public int getStart() {
+	public Integer getStart() {
 		return start;
 	}
 
-	public void setStart(int start) {
+	public void setStart(Integer start) {
 		this.start = start;
 	}
 
-	public int getInterval() {
+	public Integer getInterval() {
 		return interval;
 	}
 
-	public void setInterval(int interval) {
+	public void setInterval(Integer interval) {
 		this.interval = interval;
 	}
 

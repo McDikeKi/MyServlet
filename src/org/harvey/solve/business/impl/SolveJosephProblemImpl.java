@@ -16,6 +16,6 @@ public class SolveJosephProblemImpl implements SolveJosephProblem{
 	public Response solve(Request request){
 		String result = josephProblemFunction.getFinalElement(request.getCircle().getPersons() ,
 				Integer.valueOf(request.getCircle().getStart()) , Integer.valueOf(request.getCircle().getInterval()));
-		return new Response(result);
+		return new Response(result,null);
 	}
 }

@@ -7,7 +7,7 @@ import org.harvey.solve.annotation.Mapping;
 public class Request extends DataTransferObject {
 	@Mapping(jsonFieldName="circle")
 	@Valid
-	@NotNull(message="circle can't be null")
+	@NotNull(message="Circle can't be null")
 	private Circle circle;
 
 	public Request() {

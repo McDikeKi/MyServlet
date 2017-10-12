@@ -86,47 +86,51 @@ function checkRequest(){
 
 function getResult(){
 	//var circletext = $("#circle").val().trim();
-	if(!checkRequest()){
-		alert("Illegal input");
-	}
-	else{
-		var startindextext = $("#startindex").val().trim();
-		var interval = $("#interval").val().trim();
-		var nameNum = $("#nameslist li").length;
-		var json = {};	
-		var request = {};
-		//var persons = circletext.trim().split(",");
-		var persons = [];
-		$("#nameslist").children("li").each(function(){
-			$(this).children("label").each(function(){
-				persons.push($(this).text());
-			});
+//	if(!checkRequest()){
+//		alert("Illegal input");
+//		return;
+//	}
+	var startindextext = $("#startindex").val().trim();
+	var interval = $("#interval").val().trim();
+	var nameNum = $("#nameslist li").length;
+	var json = {};	
+	var request = {};
+	//var persons = circletext.trim().split(",");
+	var persons = [];
+	$("#nameslist").children("li").each(function(){
+		$(this).children("label").each(function(){
+			persons.push($(this).text());
 		});
-		
-		request.start = parseInt(startindextext);
-		request.interval = parseInt(interval);
-		request.persons = persons;
-		json.circle = request;
-		console.log("json:"+JSON.stringify(json));
-		
-		$.ajax({  
-			url:'/solve/JosephProblem/ProblemSolve',
-	        type:'post',
-	        contentType: "application/json; charset=utf-8",
-	        data: JSON.stringify(json),
-	        dataType:'json',
-	        success:function(msg){ 
-	        	if(msg == null){
-	        		alert("Illegal input");
-	        	}
-	        	else{
-		        	var obj = msg;
-		        	var result = obj.person;
-		        	$("#resultinput").text(result.toString());
-	        	}
-	        }, 
-	    });
-	}
+	});
+	
+	request.start = parseInt(startindextext);
+	request.interval = parseInt(interval);
+	request.persons = persons;
+	json.circle = request;
+	console.log("json:"+JSON.stringify(json));
+	
+	$.ajax({  
+		url:'/solve/JosephProblem/ProblemSolve',
+        type:'post',
+        contentType: "application/json; charset=utf-8",
+        data: JSON.stringify(json),
+        dataType:'json',
+        success:function(msg){ 
+        	if(msg.person == null){
+        		var errorMessage = "Illegal input\r\n";
+        		var errors = msg.errors;
+        		for(var i = 0;i<errors.length;i++){
+        			errorMessage += errors[i].field+" - "+"Error field:"+errors[i].message;
+        		}
+        		alert(errorMessage);
+        	}
+        	else{
+	        	var obj = msg;
+	        	var result = obj.person;
+	        	$("#resultinput").text(result.toString());
+        	}
+        }, 
+    });
 }
 
 function setButtons(labelId){
@@ -198,11 +202,11 @@ function addNameLabelAppend(name){
 	$("#nameslist").append('<li class="li-for-name" id="li2" onblur="show()">'+
 			'<label class="label-name" id="'+labelId+'">'+name+'</label>'+
 			'<div class="div-option" >'+
-				'<button class="button-lable-option" id="'+labelId+'1">Insert</button>'+
-				'<button class="button-lable-option" id="'+labelId+'2">Delete</button>'+
-				'<button class="button-lable-option" id="'+labelId+'3">Up</button>'+
-				'<button class="button-lable-option" id="'+labelId+'4">Down</button>'+
-				'<button class="button-lable-option" id="'+labelId+'5">Rename</button>'+
+				'<button class="button-lable-option" type="button" id="'+labelId+'1">Insert</button>'+
+				'<button class="button-lable-option" type="button" id="'+labelId+'2">Delete</button>'+
+				'<button class="button-lable-option" type="button" id="'+labelId+'3">Up</button>'+
+				'<button class="button-lable-option" type="button" id="'+labelId+'4">Down</button>'+
+				'<button class="button-lable-option" type="button" id="'+labelId+'5">Rename</button>'+
 			'</div>'+
 	'</li>');
 		
@@ -222,11 +226,11 @@ function addNameLabelBefore(locationLi,name){
 	$(locationLi).before('<li class="li-for-name" id="li2" onblur="show()">'+
 			'<label class="label-name" id="'+labelId+'">'+name+'</label>'+
 			'<div class="div-option" >'+
-				'<button class="button-lable-option" id="'+labelId+'1">Insert</button>'+
-				'<button class="button-lable-option" id="'+labelId+'2">Delete</button>'+
-				'<button class="button-lable-option" id="'+labelId+'3">Up</button>'+
-				'<button class="button-lable-option" id="'+labelId+'4">Down</button>'+
-				'<button class="button-lable-option" id="'+labelId+'5">Rename</button>'+
+				'<button class="button-lable-option" type="button" id="'+labelId+'1">Insert</button>'+
+				'<button class="button-lable-option" type="button" id="'+labelId+'2">Delete</button>'+
+				'<button class="button-lable-option" type="button" id="'+labelId+'3">Up</button>'+
+				'<button class="button-lable-option" type="button" id="'+labelId+'4">Down</button>'+
+				'<button class="button-lable-option" type="button" id="'+labelId+'5">Rename</button>'+
 			'</div>'+
 	'</li>');
 		
@@ -246,11 +250,11 @@ function addNameLabelAfter(locationLi,name){
 	$(locationLi).after('<li class="li-for-name" id="li2" onblur="show()">'+
 			'<label class="label-name" id="'+labelId+'">'+name+'</label>'+
 			'<div class="div-option" >'+
-				'<button class="button-lable-option" id="'+labelId+'1">Insert</button>'+
-				'<button class="button-lable-option" id="'+labelId+'2">Delete</button>'+
-				'<button class="button-lable-option" id="'+labelId+'3">Up</button>'+
-				'<button class="button-lable-option" id="'+labelId+'4">Down</button>'+
-				'<button class="button-lable-option" id="'+labelId+'5">Rename</button>'+
+				'<button class="button-lable-option" type="button" id="'+labelId+'1">Insert</button>'+
+				'<button class="button-lable-option" type="button" id="'+labelId+'2">Delete</button>'+
+				'<button class="button-lable-option" type="button" id="'+labelId+'3">Up</button>'+
+				'<button class="button-lable-option" type="button" id="'+labelId+'4">Down</button>'+
+				'<button class="button-lable-option" type="button" id="'+labelId+'5">Rename</button>'+
 			'</div>'+
 	'</li>');
 		
@@ -305,7 +309,7 @@ function blurfunction(){
 			textState=HIDDEN;
 		}
 		else{
-			$("#"+labelId).css("background","#fff");
+			$("#"+renameId).css("background","#fff");
 			renameId="";
 			$("#nameinput").val("");
 			$("#nameinput").attr("disabled","disabled");

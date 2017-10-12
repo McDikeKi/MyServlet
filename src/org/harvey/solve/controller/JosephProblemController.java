@@ -1,15 +1,18 @@
 package org.harvey.solve.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.validation.Valid;
 
 import org.apache.log4j.Logger;
 import org.harvey.solve.business.SolveJosephProblem;
+import org.harvey.solve.dto.JosephInputError;
 import org.harvey.solve.dto.Request;
 import org.harvey.solve.dto.Response;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -39,10 +42,15 @@ public class JosephProblemController {
     public Object solveJosephProblem(@Valid @RequestBody Request josephRequest,BindingResult result){
 		if(result.hasErrors()){
 			List<ObjectError> errorList = result.getAllErrors();
-			for(ObjectError error:errorList){
-				log.info(error.getDefaultMessage());
+			List<FieldError> fieldErrorList = result.getFieldErrors();
+			List<JosephInputError> inputErrors = new ArrayList<JosephInputError>();
+			for(int i = 0;i < errorList.size();i++){
+				log.info(errorList.get(i).getDefaultMessage());
+				log.info("Error field:"+fieldErrorList.get(i).getField());
+				inputErrors.add(new JosephInputError(errorList.get(i).getDefaultMessage(),
+														fieldErrorList.get(i).getField()));
 			}
-			return null;
+			return new Response(null,inputErrors);
 		}
 		else{
             Response josephResponse = solveJosephProblem.solve(josephRequest);

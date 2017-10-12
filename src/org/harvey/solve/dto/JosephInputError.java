@@ -9,7 +9,7 @@ public class JosephInputError {
 		this.message = null;
 	}
 	
-	public JosephInputError(String field, String message) {
+	public JosephInputError(String message,String field) {
 		this.field = field;
 		this.message = message;
 	}

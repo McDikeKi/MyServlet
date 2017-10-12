@@ -44,6 +44,8 @@
         </property>
     </bean>
     
+    <bean id="fibonacciInputCheck" class="org.harvey.solve.service.impl.FibonacciInputCheckImpl"/>
+    
     <bean id="fibonacciSequenceFunction" class="org.harvey.solve.service.impl.FibonacciSequenceFunctionImpl"/>
 	
 	<bean id="josephInputCheck" class="org.harvey.solve.service.impl.JosephInputCheckImpl"/>
@@ -52,6 +54,10 @@
 	
 	<bean id="solveFibonacciProblem" class="org.harvey.solve.business.impl.SolveFibonacciProblemImpl">
 		<property name="fibonacciSequenceFunction" ref="fibonacciSequenceFunction"></property>
+	</bean>	
+	
+	<bean id="checkFibonacciInput" class="org.harvey.solve.business.impl.CheckFibonacciInputImpl">
+		<property name="fibonacciInputCheck" ref="fibonacciInputCheck"></property>
 	</bean>	
 	
 	<bean id="solveJosephProblem" class="org.harvey.solve.business.impl.SolveJosephProblemImpl">
@@ -68,6 +74,7 @@
 	
 	<bean id="fibonacciProblemController" class="org.harvey.solve.controller.FibonacciProblemController">
 		<property name="solveFibonacciProblem" ref="solveFibonacciProblem"/>
+		<property name="checkFibonacciInput" ref="checkFibonacciInput"/>
 	</bean>
 	
 </beans>

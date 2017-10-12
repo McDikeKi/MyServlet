@@ -1,7 +1,7 @@
 package org.harvey.solve.business.impl;
 
 import org.harvey.solve.business.CheckJosephRequest;
-import org.harvey.solve.exception.IlligalInputException;
+import org.harvey.solve.exception.IllegalInputException;
 import org.harvey.solve.exception.JsonFieldWrongTypeException;
 import org.harvey.solve.exception.NullValueException;
 import org.harvey.solve.exception.WrongValueException;
@@ -16,15 +16,15 @@ public class CheckJosephRequestImpl implements CheckJosephRequest{
 		this.josephInputCheck = josephInputCheck;
 	}
 
-	public void check(JSONObject request) throws IlligalInputException{
+	public void check(JSONObject request) throws IllegalInputException{
 		try {
 			josephInputCheck.check(request);
 		} catch (NullValueException e) {
-			throw new IlligalInputException(EXCEPTION_MESSAGE, e);
+			throw new IllegalInputException(EXCEPTION_MESSAGE, e);
 		} catch (WrongValueException e) {
-			throw new IlligalInputException(EXCEPTION_MESSAGE, e);
+			throw new IllegalInputException(EXCEPTION_MESSAGE, e);
 		} catch (JsonFieldWrongTypeException e) {
-			throw new IlligalInputException(EXCEPTION_MESSAGE, e);
+			throw new IllegalInputException(EXCEPTION_MESSAGE, e);
 		}
 	}
 }

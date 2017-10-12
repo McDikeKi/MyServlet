@@ -7,6 +7,8 @@ var tagId = "";
 var idAccumulator=1;
 var insertId="";
 var renameId="";
+var STATUS_RED = 0;
+var STATUS_WHITE = 1;
 
 
 $(document).ready(function(){
@@ -17,6 +19,14 @@ $(document).ready(function(){
         if(e.keyCode == 13)
         	this.blur();
     });  
+	
+	$("#startindex").focus(function(){
+		recoveryStartBorder();
+	})
+
+	$("#interval").focus(function(){
+		recoveryIntervalBorder();
+	})
 	
 	$("#inputForm").validate({
 		invalidHandler : function(){
@@ -84,6 +94,75 @@ function checkRequest(){
 	return true;
 }
 
+function changeColor(errors){
+	for(var i = 0;i<errors.length;i++){
+		if(errors[i].field.indexOf("start")>=0){
+			var status = STATUS_WHITE;
+			var change = setInterval(function(){
+				if(status===STATUS_WHITE){
+					$("#startindex").css("border","2px solid #f00");
+					status = STATUS_RED;
+				}
+				else{
+					$("#startindex").css("border","none");
+					status = STATUS_WHITE;
+				}
+			},300);
+			setTimeout(function(){clearInterval(change)},1500);
+		}else if(errors[i].field.indexOf("interval")>=0){
+			var status = STATUS_WHITE;
+			var change = setInterval(function(){
+				if(status===STATUS_WHITE){
+					$("#interval").css("border","2px solid #f00");
+					status = STATUS_RED;
+				}
+				else{
+					$("#interval").css("border","none");
+					status = STATUS_WHITE;
+				}
+			},300);
+			setTimeout(function(){clearInterval(change)},1500);
+		}else if(errors[i].field.indexOf("persons")>=0){
+			var status = STATUS_WHITE;
+			var change = setInterval(function(){
+				if(status===STATUS_WHITE){
+					$("#nameslist").css("border","2px solid #f00");
+					status = STATUS_RED;
+				}
+				else{
+					$("#nameslist").css("border","none");
+					status = STATUS_WHITE;
+				}
+			},300);
+			setTimeout(function(){clearInterval(change)},1500);
+		}   			
+	}
+}
+
+function recoveryStartBorder(){
+	$("#startindex").css("border","");
+}
+
+function recoveryIntervalBorder(){
+	$("#interval").css("border","");
+}
+
+function recoveryNameListBorder(){
+	$("#nameslist").css("border","");
+}
+
+function highlight(errors){
+	for(var i = 0;i<errors.length;i++){
+		if(errors[i].field.indexOf("start")>=0){
+			$("#startindex").css("border","2px solid #f00");
+		}else if(errors[i].field.indexOf("interval")>=0){
+			$("#interval").css("border","2px solid #f00");
+		}else if(errors[i].field.indexOf("persons")>=0){
+			$("#nameslist").css("border","2px solid #f00");
+		}   			
+	}
+}
+
 function getResult(){
 	//var circletext = $("#circle").val().trim();
 //	if(!checkRequest()){
@@ -119,10 +198,7 @@ function getResult(){
         	if(msg.person == null){
         		var errorMessage = "Illegal input\r\n";
         		var errors = msg.errors;
-        		for(var i = 0;i<errors.length;i++){
-        			errorMessage += errors[i].field+" - "+"Error field:"+errors[i].message;
-        		}
-        		alert(errorMessage);
+        		highlight(errors);
         	}
         	else{
 	        	var obj = msg;
@@ -154,10 +230,14 @@ function setButtons(labelId){
 		$("#nameinput").focus();
 		textState = FOR_INSERT;
 		insertId = labelId;
+		
+		recoveryNameListBorder();
 	});	
 	
 	$('#'+labelId+'2').click(function(){
 		$('#'+labelId+'').parent().remove();
+		
+		recoveryNameListBorder();
 	});
 	
 	$('#'+labelId+'3').click(function(){
@@ -187,6 +267,8 @@ function setButtons(labelId){
 		$("#nameinput").focus();
 		textState = FOR_RENAME;
 		renameId = labelId;
+		
+		recoveryNameListBorder();
 	});
 }
 
@@ -364,6 +446,8 @@ function append(){
 	$("#nameinput").removeAttr("disabled");
 	textState=FOR_APPEND;
 	$("#nameinput").focus();
+	
+	recoveryNameListBorder();
 };
 
 function clearAll(){
@@ -373,4 +457,6 @@ function clearAll(){
 		}
 	});
 	idAccumulator = 1;
+	
+	recoveryNameListBorder();
 }

@@ -20,6 +20,10 @@ $(document).ready(function(){
         	this.blur();
     });  
 	
+	$("#startError").hide();
+	$("#intervalError").hide();
+	$("#personsError").html("&nbsp;");
+	
 	$("#startindex").focus(function(){
 		recoveryStartBorder();
 	})
@@ -141,24 +145,32 @@ function changeColor(errors){
 
 function recoveryStartBorder(){
 	$("#startindex").css("border","");
+	$("#startError").hide();
 }
 
 function recoveryIntervalBorder(){
 	$("#interval").css("border","");
+	$("#intervalError").hide();
 }
 
 function recoveryNameListBorder(){
 	$("#nameslist").css("border","");
+	$("#personsError").html("&nbsp;");
 }
 
 function highlight(errors){
 	for(var i = 0;i<errors.length;i++){
 		if(errors[i].field.indexOf("start")>=0){
 			$("#startindex").css("border","2px solid #f00");
+			$("#startError").text(errors[i].message);
+			$("#startError").show();
 		}else if(errors[i].field.indexOf("interval")>=0){
 			$("#interval").css("border","2px solid #f00");
+			$("#intervalError").text(errors[i].message);
+			$("#intervalError").show();
 		}else if(errors[i].field.indexOf("persons")>=0){
 			$("#nameslist").css("border","2px solid #f00");
+			$("#personsError").html(errors[i].message);
 		}   			
 	}
 }
@@ -196,7 +208,6 @@ function getResult(){
         dataType:'json',
         success:function(msg){ 
         	if(msg.person == null){
-        		var errorMessage = "Illegal input\r\n";
         		var errors = msg.errors;
         		highlight(errors);
         	}

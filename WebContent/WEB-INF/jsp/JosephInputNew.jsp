@@ -19,23 +19,26 @@
 					<div>
 						<label class="label-tag">Start Index</label>
 						<input class="input-text" type="text" id="startindex" name="startindex"/>
+						<label class="error" id="startError"></label>
 					</div>
 				</li>
 				<li class="li-input">
 					<div>
 						<label class="label-tag">Interval</label>
 						<input class="input-text" type="text" id="interval" name="interval"/>
+						<label class="error" id="intervalError"></label>
 					</div>
 				</li>
 				<li class="li-input">
 					<div>
 						<label class="label-names-tag">Names</label>
 						<ol class="ol-name" id="nameslist">	</ol>
+						<label class="label-error" id="personsError">&nbsp;</label>
 					</div>
 				</li>
 				<li>
 					<div class="div-input-buttons">
-							<input class="input-name-field ignore" type="text" id="nameinput" disabled="disabled" onblur="blurfunction()"/>
+							<input class="input-name-field" type="text" id="nameinput" disabled="disabled" onblur="blurfunction()"/>
 							<div class="div-append-clear">
 								<button class="button-append" type="button" id="appendbt" onclick="append()">Append</button>
 								<button class="button-clear" type="button" id="clearbt" onclick="clearAll()">Clear</button>

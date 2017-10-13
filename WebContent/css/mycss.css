@@ -53,6 +53,10 @@
 	margin-top:35px;
 }
 
+.li-input-and-buttons{
+	margin-top:10px;
+}
+
 .li-buttons{
 	height:30px;
 	width:320px;
@@ -219,7 +223,7 @@
 	height:30px;
 	width:320px;
 	float:right;
-	margin-top:20px;
+	margin-top:-15px;
 	margin-right:380px;
 }
 
@@ -294,6 +298,7 @@
 	border-color:#E6E6FA;
 	height:30px;
 	width:252px;
+	margin-top:0px;
 	margin-left:13px;
 	padding-left:10px;
 	padding-right:10px;
@@ -309,6 +314,17 @@
     display:inline-block;
     font-size:15px;
     font-family:Arial;
-    margin-right:411px;
+    margin-right:412px;
+    margin-top:2px;
+}
+
+.label-error{
+	float:right;
+    color:Red;
+    height:30px;
+    display:inline-block;
+    font-size:15px;
+    font-family:Arial;
+    margin-right:412px;
     margin-top:2px;
 }

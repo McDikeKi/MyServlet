@@ -40,14 +40,14 @@ public class JosephProblemController {
 	@RequestMapping("/ProblemInput")
 	public ModelAndView josephProblemInput(){
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("JosephInputNew");
+		mav.setViewName("JosephInput");
 		return mav;
 	}
 	
 	@RequestMapping(value="/ProblemSolve",method=RequestMethod.POST)
 	@ResponseBody
     public Object solveJosephProblem(@Valid @RequestBody JosephProblemRequest josephRequest,BindingResult result){
-		if(!result.hasErrors()){
+		if(result.hasErrors()){
 			List<ObjectError> errorList = result.getAllErrors();
 			List<FieldError> fieldErrorList = result.getFieldErrors();
 			List<JosephProblemInputError> inputErrors = new ArrayList<>();

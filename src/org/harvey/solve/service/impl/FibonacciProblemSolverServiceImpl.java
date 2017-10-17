@@ -4,7 +4,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.harvey.solve.service.FibonacciSequenceFunction;
+import org.harvey.solve.service.FibonacciProblemSolverService;
 import org.springframework.stereotype.Service;
 
 /**
@@ -16,8 +16,12 @@ import org.springframework.stereotype.Service;
  */
 
 @Service
-public class FibonacciSequenceFunctionImpl implements FibonacciSequenceFunction {
-
+public class FibonacciProblemSolverServiceImpl implements FibonacciProblemSolverService {
+	private static final BigDecimal firstElement = new BigDecimal(0);
+	private static final BigDecimal secondElement = new BigDecimal(1);;
+	private final int ZERO = 0;
+	private final int FIRST_LENGTH = 1;
+	private final int SECOND_LENGTH = 2;
 	/**
 	 * This is the algorithm of the fibonacci sequence problem @param num: The
 	 * length of the fibonacci sequence @return a list that contains the
@@ -25,25 +29,21 @@ public class FibonacciSequenceFunctionImpl implements FibonacciSequenceFunction 
 	 */
 	
 	public List<BigDecimal> getSequenceResult(int num) {
-		final int ZERO = 0;
-		final int FIRST_NUM = 1;
-		final BigDecimal FIRST_VALUE = new BigDecimal(0);
-		final int SECOND_NUM = 2;
-		final BigDecimal SECOND_VALUE = new BigDecimal(1);
+		
 
 		List<BigDecimal> list = new ArrayList<>();
 		if (num == ZERO) {
 		}
-		if (num == FIRST_NUM) {
-			list.add(FIRST_VALUE);
-		} else if (num == SECOND_NUM) {
-			list.add(FIRST_VALUE);
-			list.add(SECOND_VALUE);
+		if (num == FIRST_LENGTH) {
+			list.add(firstElement);
+		} else if (num == SECOND_LENGTH) {
+			list.add(firstElement);
+			list.add(secondElement);
 		} else {
-			list.add(FIRST_VALUE);
-			list.add(SECOND_VALUE);
-			BigDecimal previous0 = FIRST_VALUE;
-			BigDecimal previous1 = SECOND_VALUE;
+			list.add(firstElement);
+			list.add(secondElement);
+			BigDecimal previous0 = firstElement;
+			BigDecimal previous1 = secondElement;
 			BigDecimal current;
 			for (int i = 1; i < num - 1; i++) {
 				current = previous0.add(previous1);

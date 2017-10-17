@@ -44,37 +44,38 @@
         </property>
     </bean>
     
-    <bean id="fibonacciInputCheck" class="org.harvey.solve.service.impl.FibonacciInputCheckImpl"/>
+    <bean id="fibonacciRequestCheckerService" class="org.harvey.solve.service.impl.FibonacciRequestCheckerServiceImpl"/>
     
-    <bean id="fibonacciSequenceFunction" class="org.harvey.solve.service.impl.FibonacciSequenceFunctionImpl"/>
+    <bean id="fibonacciProblemSolverService" class="org.harvey.solve.service.impl.FibonacciProblemSolverServiceImpl"/>
 	
-	<bean id="josephInputCheck" class="org.harvey.solve.service.impl.JosephInputCheckImpl"/>
+	<bean id="josephRequestCheckerService" class="org.harvey.solve.service.impl.JosephRequestCheckerServiceImpl"/>
 	
-	<bean id="josephProblemFunction" class="org.harvey.solve.service.impl.JosephProblemFunctionImpl"/>
+	<bean id="josephProblemSolverService" class="org.harvey.solve.service.impl.JosephProblemSolverServiceImpl"/>
 	
-	<bean id="solveFibonacciProblem" class="org.harvey.solve.business.impl.SolveFibonacciProblemImpl">
-		<property name="fibonacciSequenceFunction" ref="fibonacciSequenceFunction"></property>
+	<bean id="fibonacciProblemSolverBusiness" class="org.harvey.solve.business.impl.FibonacciProblemSolverBusinessImpl">
+		<property name="fibonacciProblemSolverService" ref="fibonacciProblemSolverService"></property>
 	</bean>	
 	
-	<bean id="checkFibonacciInput" class="org.harvey.solve.business.impl.CheckFibonacciInputImpl">
-		<property name="fibonacciInputCheck" ref="fibonacciInputCheck"></property>
+	<bean id="fibonacciRequestCheckerBusiness" class="org.harvey.solve.business.impl.FibonacciRequestCheckerBusinessImpl">
+		<property name="fibonacciRequestCheckerService" ref="fibonacciRequestCheckerService"></property>
 	</bean>	
 	
-	<bean id="solveJosephProblem" class="org.harvey.solve.business.impl.SolveJosephProblemImpl">
-		<property name="josephProblemFunction" ref="josephProblemFunction"></property>
+	<bean id="josephProblemSolverBusiness" class="org.harvey.solve.business.impl.JosephProblemSolverBusinessImpl">
+		<property name="josephProblemSolverService" ref="josephProblemSolverService"></property>
 	</bean>	
 	
-	<bean id="checkJosephRequest" class="org.harvey.solve.business.impl.CheckJosephRequestImpl">
-		<property name="josephInputCheck" ref="josephInputCheck"></property>
+	<bean id="josephRequestCheckerBusiness" class="org.harvey.solve.business.impl.JosephRequestCheckerBusinessImpl">
+		<property name="josephRequestCheckerService" ref="josephRequestCheckerService"></property>	
 	</bean>	
 	
     <bean id="josephProblemController" class="org.harvey.solve.controller.JosephProblemController">
-		<property name="solveJosephProblem" ref="solveJosephProblem"/>
+		<property name="josephProblemSolverBusiness" ref="josephProblemSolverBusiness"/>
+		<property name="josephRequestCheckerBusiness" ref="josephRequestCheckerBusiness"/>
 	</bean>
 	
 	<bean id="fibonacciProblemController" class="org.harvey.solve.controller.FibonacciProblemController">
-		<property name="solveFibonacciProblem" ref="solveFibonacciProblem"/>
-		<property name="checkFibonacciInput" ref="checkFibonacciInput"/>
+		<property name="fibonacciProblemSolverBusiness" ref="fibonacciProblemSolverBusiness"/>
+		<property name="fibonacciRequestCheckerBusiness" ref="fibonacciRequestCheckerBusiness"/>
 	</bean>
 	
 </beans>

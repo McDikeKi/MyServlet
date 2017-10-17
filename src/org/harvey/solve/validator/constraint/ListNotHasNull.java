@@ -1,10 +1,10 @@
-package org.harvey.solve.validator;
+package org.harvey.solve.validator.constraint;
 
 
 import javax.validation.Constraint;
 import javax.validation.Payload;
 
-import org.harvey.solve.validator.impl.ListNotHasNullValidatorImpl;
+import org.harvey.solve.validator.ListNotHasNullValidator;
 
 import java.lang.annotation.*;
 import static java.lang.annotation.ElementType.*;
@@ -14,7 +14,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Target({ElementType.ANNOTATION_TYPE, ElementType.METHOD, ElementType.FIELD})
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
-@Constraint(validatedBy = ListNotHasNullValidatorImpl.class)
+@Constraint(validatedBy = ListNotHasNullValidator.class)
 
 public @interface ListNotHasNull {
 

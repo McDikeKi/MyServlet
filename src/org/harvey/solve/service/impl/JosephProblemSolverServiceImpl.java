@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.harvey.solve.linkedlist.DataNode;
 import org.harvey.solve.linkedlist.SingleLinkedList;
-import org.harvey.solve.service.JosephProblemFunction;
+import org.harvey.solve.service.JosephProblemSolverService;
 
 /**
  * 
@@ -15,7 +15,7 @@ import org.harvey.solve.service.JosephProblemFunction;
  */
 
 
-public class JosephProblemFunctionImpl implements JosephProblemFunction {
+public class JosephProblemSolverServiceImpl implements JosephProblemSolverService {
 	/**
 	 * /* This is the algorithm of the joseph problem
 	 * 
@@ -27,7 +27,7 @@ public class JosephProblemFunctionImpl implements JosephProblemFunction {
 	 *            the interval
 	 * @return the last person's name
 	 */
-	public String getFinalElement(List<String> liStrings, int startIndex, int interval) {
+	public String solve(List<String> liStrings, int startIndex, int interval) {
 		final int FINAL_SIZE = 1;
 		int index = startIndex;
 		

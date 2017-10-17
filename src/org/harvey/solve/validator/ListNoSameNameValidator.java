@@ -1,7 +1,7 @@
-package org.harvey.solve.validator.impl;
+package org.harvey.solve.validator;
 
 
-import org.harvey.solve.validator.ListNoSameName;
+import org.harvey.solve.validator.constraint.ListNoSameName;
 import org.springframework.stereotype.Service;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
@@ -9,7 +9,7 @@ import java.util.List;
 
 @SuppressWarnings("rawtypes")
 @Service
-public class ListNoSameNameValidatorImpl implements ConstraintValidator<ListNoSameName, List> {
+public class ListNoSameNameValidator implements ConstraintValidator<ListNoSameName, List> {
 
 
     @Override

@@ -1,7 +1,7 @@
-package org.harvey.solve.validator.impl;
+package org.harvey.solve.validator;
 
 
-import org.harvey.solve.validator.ListNotHasNull;
+import org.harvey.solve.validator.constraint.ListNotHasNull;
 import org.springframework.stereotype.Service;
 
 import javax.validation.ConstraintValidator;
@@ -10,7 +10,7 @@ import java.util.List;
 
 @SuppressWarnings("rawtypes")
 @Service
-public class ListNotHasNullValidatorImpl implements ConstraintValidator<ListNotHasNull, List> {
+public class ListNotHasNullValidator implements ConstraintValidator<ListNotHasNull, List> {
 
 
     @Override

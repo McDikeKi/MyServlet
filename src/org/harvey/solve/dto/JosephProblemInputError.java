@@ -1,15 +1,15 @@
 package org.harvey.solve.dto;
 
-public class JosephInputError {
+public class JosephProblemInputError {
 	String field;
 	String message;
 	
-	public JosephInputError() {
+	public JosephProblemInputError() {
 		this.field = null;
 		this.message = null;
 	}
 	
-	public JosephInputError(String message,String field) {
+	public JosephProblemInputError(String message,String field) {
 		this.field = field;
 		this.message = message;
 	}

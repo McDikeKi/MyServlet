@@ -1,4 +1,4 @@
-package org.harvey.solve.validator;
+package org.harvey.solve.validator.constraint;
 
 import static java.lang.annotation.ElementType.ANNOTATION_TYPE;
 import static java.lang.annotation.ElementType.CONSTRUCTOR;
@@ -16,12 +16,12 @@ import java.lang.annotation.Target;
 import javax.validation.Constraint;
 import javax.validation.Payload;
 
-import org.harvey.solve.validator.impl.ListNoSameNameValidatorImpl;
+import org.harvey.solve.validator.ListNoSameNameValidator;
 
 @Target({ElementType.ANNOTATION_TYPE, ElementType.METHOD, ElementType.FIELD})
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
-@Constraint(validatedBy = ListNoSameNameValidatorImpl.class)
+@Constraint(validatedBy = ListNoSameNameValidator.class)
 
 public @interface ListNoSameName {
 

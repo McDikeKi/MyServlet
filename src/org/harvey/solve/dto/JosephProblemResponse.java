@@ -4,17 +4,17 @@ import java.util.List;
 
 import org.harvey.solve.annotation.Mapping;
 
-public class Response extends DataTransferObject{
+public class JosephProblemResponse extends DataTransferObject{
 	@Mapping(jsonFieldName="person")
 	private String person;
-	private List<JosephInputError> errors;
+	private List<JosephProblemInputError> errors;
 	
-	public Response() {
+	public JosephProblemResponse() {
 		person = null;
 		errors = null;
 	}
 	
-	public Response(String person,List<JosephInputError> errors) {
+	public JosephProblemResponse(String person,List<JosephProblemInputError> errors) {
 		this.person = person;
 		this.errors = errors;
 	}
@@ -27,18 +27,11 @@ public class Response extends DataTransferObject{
 		this.person = person;
 	}
 
-	public List<JosephInputError> getErrors() {
+	public List<JosephProblemInputError> getErrors() {
 		return errors;
 	}
 
-	public void setErrors(List<JosephInputError> errors) {
+	public void setErrors(List<JosephProblemInputError> errors) {
 		this.errors = errors;
 	}
-
-	@Override
-	public String toString() {
-		return "Response [person=" + person + "]";
-	}
-
-
 }

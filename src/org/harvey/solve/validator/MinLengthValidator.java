@@ -1,16 +1,16 @@
-package org.harvey.solve.validator.impl;
+package org.harvey.solve.validator;
 
 import java.util.List;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
-import org.harvey.solve.validator.MinLength;
+import org.harvey.solve.validator.constraint.MinLength;
 import org.springframework.stereotype.Service;
 
 @SuppressWarnings("rawtypes")
 @Service
-public class MinLengthValidatorImpl implements ConstraintValidator<MinLength, List>{
+public class MinLengthValidator implements ConstraintValidator<MinLength, List>{
 	private int value;
 
     @Override

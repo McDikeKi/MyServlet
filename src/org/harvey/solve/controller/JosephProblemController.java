@@ -6,10 +6,12 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.apache.log4j.Logger;
-import org.harvey.solve.business.SolveJosephProblem;
-import org.harvey.solve.dto.JosephInputError;
-import org.harvey.solve.dto.Request;
-import org.harvey.solve.dto.Response;
+import org.harvey.solve.business.JosephProblemSolverBusiness;
+import org.harvey.solve.business.JosephRequestCheckerBusiness;
+import org.harvey.solve.dto.JosephProblemInputError;
+import org.harvey.solve.dto.JosephProblemRequest;
+import org.harvey.solve.dto.JosephProblemResponse;
+import org.harvey.solve.exception.IllegalInputException;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
@@ -24,10 +26,15 @@ import org.springframework.web.servlet.ModelAndView;
 @RequestMapping("JosephProblem")
 public class JosephProblemController {
 	private static Logger log = Logger.getLogger(JosephProblemController.class);
-	private SolveJosephProblem solveJosephProblem;
+	private JosephProblemSolverBusiness josephProblemSolverBusiness;
+	private JosephRequestCheckerBusiness josephRequestCheckerBusiness;
 
-	public void setSolveJosephProblem(SolveJosephProblem solveJosephProblem) {
-		this.solveJosephProblem = solveJosephProblem;
+	public void setJosephRequestCheckerBusiness(JosephRequestCheckerBusiness josephRequestCheckerBusiness) {
+		this.josephRequestCheckerBusiness = josephRequestCheckerBusiness;
+	}
+
+	public void setJosephProblemSolverBusiness(JosephProblemSolverBusiness josephProblemSolverBusiness) {
+		this.josephProblemSolverBusiness = josephProblemSolverBusiness;
 	}
 
 	@RequestMapping("/ProblemInput")
@@ -39,21 +46,34 @@ public class JosephProblemController {
 	
 	@RequestMapping(value="/ProblemSolve",method=RequestMethod.POST)
 	@ResponseBody
-    public Object solveJosephProblem(@Valid @RequestBody Request josephRequest,BindingResult result){
-		if(result.hasErrors()){
+    public Object solveJosephProblem(@Valid @RequestBody JosephProblemRequest josephRequest,BindingResult result){
+		if(!result.hasErrors()){
 			List<ObjectError> errorList = result.getAllErrors();
 			List<FieldError> fieldErrorList = result.getFieldErrors();
-			List<JosephInputError> inputErrors = new ArrayList<JosephInputError>();
-			for(int i = 0;i < errorList.size();i++){
-				log.info(errorList.get(i).getDefaultMessage());
-				log.info("Error field:"+fieldErrorList.get(i).getField());
-				inputErrors.add(new JosephInputError(errorList.get(i).getDefaultMessage(),
-														fieldErrorList.get(i).getField()));
+			List<JosephProblemInputError> inputErrors = new ArrayList<>();
+			int index = 0;
+			for(ObjectError objectError : errorList){
+				String message = objectError.getDefaultMessage();
+				String fieldName = fieldErrorList.get(index++).getField();
+				log.info(message);
+				log.info("Error field:"+fieldName);
+				inputErrors.add(new JosephProblemInputError(message,fieldName));
 			}
-			return new Response(null,inputErrors);
+			return new JosephProblemResponse(null,inputErrors);
 		}
 		else{
-            Response josephResponse = solveJosephProblem.solve(josephRequest);
+			try {
+				josephRequestCheckerBusiness.check(josephRequest);
+			} catch (IllegalInputException e) {
+				String errorMesage = e.getCause().getMessage();
+				log.info(e.getMessage()+" "+errorMesage);
+				int index = errorMesage.indexOf("-");
+				List<JosephProblemInputError> errors = new ArrayList<>();
+				errors.add(new JosephProblemInputError(errorMesage.substring(0, index-1)
+											,errorMesage.substring(index+2,errorMesage.length())));
+				return new JosephProblemResponse(null,errors);
+			}
+            JosephProblemResponse josephResponse = josephProblemSolverBusiness.solve(josephRequest);
 			return josephResponse;
 		}
     }	

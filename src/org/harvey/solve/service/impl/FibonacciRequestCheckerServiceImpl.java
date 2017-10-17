@@ -2,9 +2,9 @@ package org.harvey.solve.service.impl;
 
 import org.harvey.solve.exception.NullValueException;
 import org.harvey.solve.exception.WrongValueException;
-import org.harvey.solve.service.FibonacciInputCheck;
+import org.harvey.solve.service.FibonacciRequestCheckerService;
 
-public class FibonacciInputCheckImpl implements FibonacciInputCheck{
+public class FibonacciRequestCheckerServiceImpl implements FibonacciRequestCheckerService{
 	private static final String MESSAGE_NULL_VALUE_ERROR = "Input is null";
 	private static final String MESSAGE_NOT_A_NUMBER_ERROR = "Input is not a integer";
 	private static final String MESSAGE_NEGATIVE_NUMBER_ERROR = "Input is a negative number";

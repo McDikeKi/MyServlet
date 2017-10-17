@@ -181,6 +181,7 @@ function getResult(){
 //		alert("Illegal input");
 //		return;
 //	}
+	$("#resultinput").html("&nbsp;");
 	var startindextext = $("#startindex").val().trim();
 	var interval = $("#interval").val().trim();
 	var nameNum = $("#nameslist li").length;

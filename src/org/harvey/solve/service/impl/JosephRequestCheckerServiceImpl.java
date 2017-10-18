@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.harvey.solve.dto.JosephProblemCircle;
 import org.harvey.solve.dto.JosephProblemRequest;
-import org.harvey.solve.exception.JsonFieldWrongTypeException;
 import org.harvey.solve.exception.NullValueException;
 import org.harvey.solve.exception.WrongValueException;
 import org.harvey.solve.service.JosephRequestCheckerService;
@@ -17,9 +16,10 @@ public class JosephRequestCheckerServiceImpl implements JosephRequestCheckerServ
 	private static final String MESSAGE_INTERVAL_NULL = "Interval is null - circle.interval";
 	private static final String MESSAGE_START_VALUE_WRONG = "Wrong input for start - circle.start";
 	private static final String MESSAGE_INTERVAL_VALUE_WRONG = "Wrong input for interval - circle.interval";
-	private static final String MESSAGE_INDEX_OUT_OF_BOUNDS = "Start index out of bounds - circle.start";
-
-	public void check(JosephProblemRequest request) throws NullValueException, WrongValueException, JsonFieldWrongTypeException {		
+	private static final String MESSAGE_START_INDEX_OUT_OF_BOUNDS = "Start index out of bounds - circle.start";
+	private static final String MESSAGE_INTERVAL_OUT_OF_BOUNDS = "Interval out of bounds - circle.interval";
+	
+	public void check(JosephProblemRequest request) throws NullValueException, WrongValueException{		
 		if (request == null) {
 			throw new NullValueException(MESSAGE_REQUEST_NULL);
 		} else {
@@ -46,7 +46,10 @@ public class JosephRequestCheckerServiceImpl implements JosephRequestCheckerServ
 						throw new WrongValueException(MESSAGE_INTERVAL_VALUE_WRONG);
 					}
 					if (start >= persons.size()) {
-						throw new WrongValueException(MESSAGE_INDEX_OUT_OF_BOUNDS);
+						throw new WrongValueException(MESSAGE_START_INDEX_OUT_OF_BOUNDS);
+					}
+					if (interval > persons.size()) {
+						throw new WrongValueException(MESSAGE_INTERVAL_OUT_OF_BOUNDS);
 					}
 				}
 			}

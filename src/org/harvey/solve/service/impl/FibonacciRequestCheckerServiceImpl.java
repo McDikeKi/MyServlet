@@ -11,7 +11,7 @@ public class FibonacciRequestCheckerServiceImpl implements FibonacciRequestCheck
 	@Override
 	public void check(String lengthStr) throws WrongValueException, NullValueException {
 		Integer length;
-		if("".equals(lengthStr)){
+		if("".equals(lengthStr)||lengthStr==null){
 			throw new NullValueException(MESSAGE_NULL_VALUE_ERROR);
 		}
 		try {  

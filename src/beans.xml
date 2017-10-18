@@ -6,25 +6,5 @@
         http://www.springframework.org/schema/beans/spring-beans.xsd
         http://www.springframework.org/schema/aop 
         http://www.springframework.org/schema/aop/spring-aop.xsd">
-
-	<aop:aspectj-autoproxy/>     
-   	  	
-   	<bean id="serviceMethodTime" class="org.harvey.solve.timelog.ServiceMethodTime"/>
-   	
-   	<bean id="businessMethodTime" class="org.harvey.solve.timelog.BusinessMethodTime"/>
-
-   	<aop:config>
-   		<aop:pointcut expression="execution(* org.harvey.solve.service.impl.*.*(..))" id="timeLogPoint"/>
-   		
-   		<aop:aspect ref="serviceMethodTime">
-         
-        	<aop:before method="showEnterTime" pointcut-ref="timeLogPoint" />
-         
-        	<aop:after-returning method="showExitTime" pointcut-ref="timeLogPoint"/>
-        
-        </aop:aspect>
-   	</aop:config>
-   
-
-	
+	   	  	 	
 </beans>

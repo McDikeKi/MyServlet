@@ -11,20 +11,20 @@ import org.harvey.solve.validator.constraint.MinLength;
 
 public class JosephProblemCircle {
 	@Mapping(jsonFieldName = "circle.persons")
-	@NotNull(message="Persons can't be null")
-	@MinLength(value=1,message="Persons size can't be 0")
-	@ListNotHasNull(message="Persons can't have a null element")
-	@ListNoSameName(message="Persons can't have same names")
+	@NotNull(message="{errormessage.null}")
+	@MinLength(value=1,message="{errormessage.circle.minsize}")
+	@ListNotHasNull(message="{errormessage.circle.nonullelement}")
+	@ListNoSameName(message="{errormessage.circle.nosameelement}")
 	private List<String> persons;
 	
 	@Mapping(jsonFieldName = "circle.start")
-	@NotNull(message="Start can't be null")
-	@Min(value = 0 ,message="Start can't be less than 0")
+	@NotNull(message="{errormessage.null}")
+	@Min(value = 0 ,message="{errormessage.start.minvalue}")
 	private Integer start;
 	
 	@Mapping(jsonFieldName = "circle.interval")
-	@NotNull(message="Interval can't be null")
-	@Min(value = 1 ,message="Interval can't be less than 1")
+	@NotNull(message="{errormessage.null}")
+	@Min(value = 1 ,message="{errormessage.interval.minvalue}")
 	private Integer interval;
 	
 	public JosephProblemCircle() {
@@ -33,7 +33,7 @@ public class JosephProblemCircle {
 		this.interval = null;
 	}
 	
-	public JosephProblemCircle(List<String> persons, int start, int interval) {
+	public JosephProblemCircle(List<String> persons, Integer start, Integer interval) {
 		super();
 		this.persons = persons;
 		this.start = start;

@@ -2,6 +2,7 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns:mvc="http://www.springframework.org/schema/mvc"
+    xmlns:aop="http://www.springframework.org/schema/aop"
     xmlns:p="http://www.springframework.org/schema/p"
     xmlns:context="http://www.springframework.org/schema/context"
     xsi:schemaLocation="
@@ -10,10 +11,12 @@
         http://www.springframework.org/schema/mvc
         http://www.springframework.org/schema/mvc/spring-mvc.xsd
         http://www.springframework.org/schema/context
-        http://www.springframework.org/schema/context/spring-context.xsd">                  
+        http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/aop 
+        http://www.springframework.org/schema/aop/spring-aop.xsd">                  
 
 	<!-- if you use annotation you must configure following setting -->
-	<mvc:annotation-driven/>
+	<mvc:annotation-driven validator="validator"/>
  	
     <!-- scan the package and the sub package -->
     <context:component-scan base-package=" org.harvey.solve.controller"/>
@@ -43,6 +46,52 @@
             </list>
         </property>
     </bean>
+    
+  	<bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean">  
+	    <property name="providerClass" value="org.hibernate.validator.HibernateValidator"/>  
+	    <property name="validationMessageSource" ref="messageSource"/>  
+	</bean>  
+    
+    <bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">  
+	    <property name="basenames">  
+	        <list>  
+	            <value>classpath:messages</value>  
+	            <value>classpath:org/hibernate/validator/ValidationMessages</value>  
+	        </list>  
+	    </property>  
+	    <property name="useCodeAsDefaultMessage" value="false"/>  
+	    <property name="defaultEncoding" value="UTF-8"/>  
+	    <property name="cacheSeconds" value="60"/>  
+	</bean>
+   	  	
+   	<aop:aspectj-autoproxy/>     
+
+   	<aop:config>
+   		<aop:pointcut expression="execution(* org.harvey.solve.service.impl.*.*(..))" id="serviceTimeLogPoint"/>
+   		<aop:pointcut expression="execution(* org.harvey.solve.controller.*.*(..))" id="controllerTimeLogPoint"/>
+   		
+   		<aop:aspect ref="serviceMethodTime">
+         
+        	<aop:before method="showEnterTime" pointcut-ref="serviceTimeLogPoint" />
+         
+        	<aop:after-returning method="showExitTime" pointcut-ref="serviceTimeLogPoint"/>
+        
+        </aop:aspect>
+        
+        <aop:aspect ref="controllerMethodTime">
+         
+        	<aop:before method="showEnterTime" pointcut-ref="controllerTimeLogPoint" />
+         
+        	<aop:after-returning method="showExitTime" pointcut-ref="controllerTimeLogPoint"/>
+        
+        </aop:aspect>
+   	</aop:config>
+   	  	
+   	<bean id="controllerMethodTime" class="org.harvey.solve.timelog.ControllerMethodTime"/>
+   	
+   	<bean id="serviceMethodTime" class="org.harvey.solve.timelog.ServiceMethodTime"/>
+   	
+   	<bean id="businessMethodTime" class="org.harvey.solve.timelog.BusinessMethodTime"/>
     
     <bean id="fibonacciRequestCheckerService" class="org.harvey.solve.service.impl.FibonacciRequestCheckerServiceImpl"/>
     

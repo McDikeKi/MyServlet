@@ -8,6 +8,14 @@ import org.harvey.solve.service.FibonacciProblemSolverService;
 
 public class FibonacciProblemSolverBusinessImpl implements FibonacciProblemSolverBusiness{
 	private FibonacciProblemSolverService fibonacciProblemSolverService;
+	
+	public FibonacciProblemSolverBusinessImpl() {
+		this.fibonacciProblemSolverService = null;
+	}
+	
+	public FibonacciProblemSolverBusinessImpl(FibonacciProblemSolverService fibonacciProblemSolverService) {
+		this.fibonacciProblemSolverService = fibonacciProblemSolverService;
+	}
 
 	public void setFibonacciProblemSolverService(FibonacciProblemSolverService fibonacciProblemSolverService) {
 		this.fibonacciProblemSolverService = fibonacciProblemSolverService;

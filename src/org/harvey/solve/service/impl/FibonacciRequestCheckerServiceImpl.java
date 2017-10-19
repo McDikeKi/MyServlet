@@ -9,7 +9,7 @@ public class FibonacciRequestCheckerServiceImpl implements FibonacciRequestCheck
 	private static final String MESSAGE_NOT_A_NUMBER_ERROR = "Input is not a integer";
 	private static final String MESSAGE_NEGATIVE_NUMBER_ERROR = "Input is a negative number";
 	@Override
-	public void check(String lengthStr) throws WrongValueException, NullValueException {
+	public boolean check(String lengthStr) throws WrongValueException, NullValueException {
 		Integer length;
 		if("".equals(lengthStr)||lengthStr==null){
 			throw new NullValueException(MESSAGE_NULL_VALUE_ERROR);
@@ -22,6 +22,7 @@ public class FibonacciRequestCheckerServiceImpl implements FibonacciRequestCheck
 		if(length<0){
 			throw new WrongValueException(MESSAGE_NEGATIVE_NUMBER_ERROR);
 		}
+		return true;
 	}
 
 }

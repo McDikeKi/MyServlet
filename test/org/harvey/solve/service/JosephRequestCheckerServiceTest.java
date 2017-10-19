@@ -35,7 +35,7 @@ public class JosephRequestCheckerServiceTest {
 	}
 	
 	@Test
-	public void checkThrowNullValueExceptionForCircleIsNull() throws NullValueException, WrongValueException, JsonFieldWrongTypeException {
+	public void testThrowNullValueExceptionForCircleIsNull() throws NullValueException, WrongValueException, JsonFieldWrongTypeException {
 		JosephProblemRequest request = new JosephProblemRequest();
 		JosephProblemCircle circle = null;
 		request.setCircle(circle);
@@ -45,7 +45,7 @@ public class JosephRequestCheckerServiceTest {
 	}
 	
 	@Test
-	public void checkThrowNullValueExceptionForPersonsIsNull() throws NullValueException, WrongValueException, JsonFieldWrongTypeException {
+	public void testThrowNullValueExceptionForPersonsIsNull() throws NullValueException, WrongValueException, JsonFieldWrongTypeException {
 		JosephProblemRequest request = new JosephProblemRequest();
 		JosephProblemCircle circle = new JosephProblemCircle(null, 1, 1);
 		request.setCircle(circle);
@@ -55,7 +55,7 @@ public class JosephRequestCheckerServiceTest {
 	}
 	
 	@Test
-	public void checkThrowNullValueExceptionForStartIsNull() throws NullValueException, WrongValueException, JsonFieldWrongTypeException {
+	public void testThrowNullValueExceptionForStartIsNull() throws NullValueException, WrongValueException, JsonFieldWrongTypeException {
 		JosephProblemRequest request = new JosephProblemRequest();
 		List<String> persons = new ArrayList<>();
 		persons.add("a");
@@ -68,7 +68,7 @@ public class JosephRequestCheckerServiceTest {
 	}
 	
 	@Test
-	public void checkThrowNullValueExceptionForIntervalIsNull() throws NullValueException, WrongValueException, JsonFieldWrongTypeException {
+	public void testThrowNullValueExceptionForIntervalIsNull() throws NullValueException, WrongValueException, JsonFieldWrongTypeException {
 		JosephProblemRequest request = new JosephProblemRequest();
 		List<String> persons = new ArrayList<>();
 		persons.add("a");
@@ -81,7 +81,7 @@ public class JosephRequestCheckerServiceTest {
 	}
 	
 	@Test
-	public void checkWrongValueExceptionForStartIsLessThanZero() throws NullValueException, WrongValueException, JsonFieldWrongTypeException {
+	public void testWrongValueExceptionForStartIsLessThanZero() throws NullValueException, WrongValueException, JsonFieldWrongTypeException {
 		JosephProblemRequest request = new JosephProblemRequest();
 		List<String> persons = new ArrayList<>();
 		persons.add("a");
@@ -94,7 +94,7 @@ public class JosephRequestCheckerServiceTest {
 	}
 	
 	@Test
-	public void checkWrongValueExceptionForIntervalIsLessThanOne() throws NullValueException, WrongValueException, JsonFieldWrongTypeException {
+	public void testWrongValueExceptionForIntervalIsLessThanOne() throws NullValueException, WrongValueException, JsonFieldWrongTypeException {
 		JosephProblemRequest request = new JosephProblemRequest();
 		List<String> persons = new ArrayList<>();
 		persons.add("a");
@@ -107,7 +107,7 @@ public class JosephRequestCheckerServiceTest {
 	}
 	
 	@Test
-	public void checkWrongValueExceptionForStartLargerThanListSize() throws NullValueException, WrongValueException, JsonFieldWrongTypeException {
+	public void testWrongValueExceptionForStartLargerThanListSize() throws NullValueException, WrongValueException, JsonFieldWrongTypeException {
 		JosephProblemRequest request = new JosephProblemRequest();
 		List<String> persons = new ArrayList<>();
 		persons.add("a");
@@ -120,7 +120,7 @@ public class JosephRequestCheckerServiceTest {
 	}
 
 	@Test
-	public void checkWrongValueExceptionForIntervalLargerThanListSize() throws NullValueException, WrongValueException, JsonFieldWrongTypeException {
+	public void testWrongValueExceptionForIntervalLargerThanListSize() throws NullValueException, WrongValueException, JsonFieldWrongTypeException {
 		JosephProblemRequest request = new JosephProblemRequest();
 		List<String> persons = new ArrayList<>();
 		persons.add("a");
@@ -133,7 +133,7 @@ public class JosephRequestCheckerServiceTest {
 	}
 	
 	@Test
-	public void checkLegalInput() {
+	public void testLegalInput() {
 		JosephProblemRequest request = new JosephProblemRequest();
 		List<String> persons = new ArrayList<>();
 		persons.add("a");

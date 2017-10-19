@@ -9,6 +9,7 @@ import org.harvey.solve.validator.constraint.ListNoSameName;
 import org.harvey.solve.validator.constraint.ListNotHasNull;
 import org.harvey.solve.validator.constraint.MinLength;
 
+
 public class JosephProblemCircle {
 	@Mapping(jsonFieldName = "circle.persons")
 	@NotNull(message="{errormessage.null}")

@@ -21,7 +21,7 @@ public class FibonacciRequestCheckerServiceTest {
 	}
 
 	@Test
-	public void checkThrowNullValueExceptionForLengthStrIsNull() throws WrongValueException, NullValueException {
+	public void testThrowNullValueExceptionForLengthStrIsNull() throws WrongValueException, NullValueException {
 		String lengthStr = null;
 		thrown.expect(NullValueException.class);
 		thrown.expectMessage("Input is null");
@@ -29,7 +29,7 @@ public class FibonacciRequestCheckerServiceTest {
 	}
 	
 	@Test
-	public void checkThrowNullValueExceptionForLengthStrIsEmpty() throws WrongValueException, NullValueException {
+	public void testThrowNullValueExceptionForLengthStrIsEmpty() throws WrongValueException, NullValueException {
 		String lengthStr = "";
 		thrown.expect(NullValueException.class);
 		thrown.expectMessage("Input is null");
@@ -37,7 +37,7 @@ public class FibonacciRequestCheckerServiceTest {
 	}
 	
 	@Test
-	public void checkWrongValueExceptionForLengthStrNotANumber() throws WrongValueException, NullValueException {
+	public void testWrongValueExceptionForLengthStrNotANumber() throws WrongValueException, NullValueException {
 		String lengthStr = "a1";
 		thrown.expect(WrongValueException.class);
 		thrown.expectMessage("Input is not a integer");
@@ -45,7 +45,7 @@ public class FibonacciRequestCheckerServiceTest {
 	}
 	
 	@Test
-	public void checkWrongValueExceptionForLengthLessThanZero() throws WrongValueException, NullValueException {
+	public void testWrongValueExceptionForLengthLessThanZero() throws WrongValueException, NullValueException {
 		String lengthStr = "-1";
 		thrown.expect(WrongValueException.class);
 		thrown.expectMessage("Input is a negative number");
@@ -53,7 +53,7 @@ public class FibonacciRequestCheckerServiceTest {
 	}
 	
 	@Test
-	public void checkLegalInput() {
+	public void testLegalInput() {
 		String lengthStr = "2";
 		try {
 			fibonacciRequestCheckerService.check(lengthStr);

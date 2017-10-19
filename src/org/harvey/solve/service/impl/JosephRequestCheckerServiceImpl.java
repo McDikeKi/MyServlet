@@ -19,7 +19,7 @@ public class JosephRequestCheckerServiceImpl implements JosephRequestCheckerServ
 	private static final String MESSAGE_START_INDEX_OUT_OF_BOUNDS = "Start index out of bounds - circle.start";
 	private static final String MESSAGE_INTERVAL_OUT_OF_BOUNDS = "Interval out of bounds - circle.interval";
 	
-	public void check(JosephProblemRequest request) throws NullValueException, WrongValueException{		
+	public boolean check(JosephProblemRequest request) throws NullValueException, WrongValueException{		
 		if (request == null) {
 			throw new NullValueException(MESSAGE_REQUEST_NULL);
 		} else {
@@ -51,6 +51,7 @@ public class JosephRequestCheckerServiceImpl implements JosephRequestCheckerServ
 					if (interval > persons.size()) {
 						throw new WrongValueException(MESSAGE_INTERVAL_OUT_OF_BOUNDS);
 					}
+					return true;
 				}
 			}
 		}

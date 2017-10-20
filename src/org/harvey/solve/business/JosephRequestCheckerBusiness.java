@@ -4,5 +4,5 @@ import org.harvey.solve.dto.JosephProblemRequest;
 import org.harvey.solve.exception.IllegalInputException;
 
 public interface JosephRequestCheckerBusiness {
-	public void check(JosephProblemRequest request) throws IllegalInputException;
+	public boolean check(JosephProblemRequest request) throws IllegalInputException;
 }

@@ -15,16 +15,16 @@ public class FibonacciRequestCheckerBusinessImpl implements FibonacciRequestChec
 	}
 
 	@Override
-	public void check(String lengthStr) throws IllegalInputException {
+	public boolean check(String lengthStr) throws IllegalInputException {
 		// TODO Auto-generated method stub
 		try {
 			fibonacciRequestCheckerService.check(lengthStr);
 		} catch (WrongValueException e) {
 			throw new IllegalInputException(EXCEPTION_MESSAGE,e);
 		} catch (NullValueException e) {
-			// TODO Auto-generated catch block
 			throw new IllegalInputException(EXCEPTION_MESSAGE,e);
 		}
+		return true;
 	}
 
 }

@@ -15,7 +15,7 @@ public class JosephRequestCheckerBusinessImpl implements JosephRequestCheckerBus
 		JosephRequestCheckerBusinessImpl.josephRequestCheckerService = josephRequestCheckerService;
 	}
 
-	public void check(JosephProblemRequest request) throws IllegalInputException{
+	public boolean check(JosephProblemRequest request) throws IllegalInputException{
 		try {
 			josephRequestCheckerService.check(request);
 		} catch (NullValueException e) {
@@ -23,5 +23,6 @@ public class JosephRequestCheckerBusinessImpl implements JosephRequestCheckerBus
 		} catch (WrongValueException e) {
 			throw new IllegalInputException(EXCEPTION_MESSAGE, e);
 		}
+		return true;
 	}
 }

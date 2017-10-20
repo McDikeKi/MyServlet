@@ -28,14 +28,14 @@ public class FibonacciProblemController {
 	}
 
 	@RequestMapping("/ProblemInput")
-	public ModelAndView fibonacciInput(){
+	public ModelAndView fibonacciProblemInput(){
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("FibonacciInput");
 		return mav;
 	}
 	
 	@RequestMapping("/ProblemSolve")
-	public ModelAndView finbonacciResult(@RequestParam(value="length") String lengthStr){
+	public ModelAndView finbonacciProblemSolve(@RequestParam(value="length") String lengthStr){
 		try {
 			fibonacciRequestCheckerBusiness.check(lengthStr);
 		} catch (IllegalInputException e) {
@@ -48,7 +48,7 @@ public class FibonacciProblemController {
 		}
 		
 		int length = Integer.valueOf(lengthStr);
-		List<BigDecimal> list = fibonacciProblemSolverBusiness.Solve(length);
+		List<BigDecimal> list = fibonacciProblemSolverBusiness.solve(length);
 
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("FibonacciResult");

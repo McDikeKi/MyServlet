@@ -18,6 +18,9 @@ public class ListNotHasNullValidator implements ConstraintValidator<ListNotHasNu
     }
 
     public boolean isValid(List list, ConstraintValidatorContext constraintValidatorContext) {
+    	if(list == null){
+    		return true;
+    	}
         for (Object object : list) {
             if (object == null) {
                 return false;

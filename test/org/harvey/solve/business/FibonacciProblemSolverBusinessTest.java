@@ -36,7 +36,7 @@ public class FibonacciProblemSolverBusinessTest {
 		
 		when(service.getSequenceResult(length)).thenReturn(result);
 		
-		List<BigDecimal> actualResult = business.Solve(length);
+		List<BigDecimal> actualResult = business.solve(length);
 		verify(service).getSequenceResult(length); 
 		
 		assertEquals(new BigDecimal(0), actualResult.get(0));

@@ -22,7 +22,7 @@ public class FibonacciProblemSolverBusinessImpl implements FibonacciProblemSolve
 	}
 
 	@Override
-	public List<BigDecimal> Solve(int length) {
+	public List<BigDecimal> solve(int length) {
 		return fibonacciProblemSolverService.getSequenceResult(length);
 	}
 

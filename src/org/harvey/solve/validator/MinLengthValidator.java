@@ -20,6 +20,9 @@ public class MinLengthValidator implements ConstraintValidator<MinLength, List>{
     
 	@Override
     public boolean isValid(List list, ConstraintValidatorContext constraintValidatorContext) {
+		if(list == null){
+			return true;
+		}
         if (list.size()<value) {
         	return false;
         }

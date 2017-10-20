@@ -46,7 +46,7 @@ public class JosephProblemController {
 	
 	@RequestMapping(value="/ProblemSolve",method=RequestMethod.POST)
 	@ResponseBody
-    public Object solveJosephProblem(@Valid @RequestBody JosephProblemRequest josephRequest,BindingResult result){
+    public Object josephProblemSolve(@Valid @RequestBody JosephProblemRequest josephRequest,BindingResult result){
 		if(result.hasErrors()){
 			List<ObjectError> errorList = result.getAllErrors();
 			List<FieldError> fieldErrorList = result.getFieldErrors();

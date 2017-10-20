@@ -4,5 +4,5 @@ import java.math.BigDecimal;
 import java.util.List;
 
 public interface FibonacciProblemSolverBusiness {
-	public List<BigDecimal> Solve(int length);
+	public List<BigDecimal> solve(int length);
 }

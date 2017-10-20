@@ -27,7 +27,7 @@ public class JosephRequestCheckerServiceTest {
 	}
 
 	@Test
-	public void checkThrowNullValueExceptionForRequestIsNull() throws NullValueException, WrongValueException, JsonFieldWrongTypeException {
+	public void testThrowNullValueExceptionForRequestIsNull() throws NullValueException, WrongValueException, JsonFieldWrongTypeException {
 		JosephProblemRequest request = null;
 		thrown.expect(NullValueException.class);
 		thrown.expectMessage("Request is null");

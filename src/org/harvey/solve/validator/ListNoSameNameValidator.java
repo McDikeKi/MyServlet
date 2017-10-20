@@ -17,6 +17,9 @@ public class ListNoSameNameValidator implements ConstraintValidator<ListNoSameNa
     }
 
     public boolean isValid(List list, ConstraintValidatorContext constraintValidatorContext) {
+    	if(list == null){
+    		return true;
+    	}
         if(list.size()==1){
         	return true;
         }

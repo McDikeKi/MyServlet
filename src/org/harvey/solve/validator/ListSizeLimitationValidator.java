@@ -20,45 +20,44 @@ public class ListSizeLimitationValidator implements ConstraintValidator<ListSize
 		this.limitedFieldName = listSizeLimitation.limitedFieldName();
 	}
 	
-    @SuppressWarnings("unchecked")
+	@SuppressWarnings("unchecked")
 	public boolean isValid(Object value, ConstraintValidatorContext constraintValidatorContext) {
         List<Object> list = null;
         Integer limitedValue = null;
     	Class<?> clazz = value.getClass();
-        Field[] fields = clazz.getDeclaredFields();
+        Field listField,limitedField;
         try {
-        	int count = 0;
-	        for(Field field : fields){
-	        	field.setAccessible(true);
-	        	if(field.getName().equals(listFieldName)){
-	        		list = (List<Object>) field.get(value);
-	        		if(count++>1){
-	        			break;
-	        		}
-	        		continue;
-	        	}
-	        	if(field.getName().equals(limitedFieldName)){
-	        		limitedValue = (Integer) field.get(value);
-	        		if(count++>1){
-	        			break;
-	        		}
-	        		continue;
-	        	}	
-	        }
-	        if(limitedValue == null||list == null){
-	        	return true;
-	        }
-	        if(limitedValue<list.size()){
-	        	return true;
-	        }
-	        else{
-				return false;
-			}
-        } catch (IllegalArgumentException e) {
-        	log.error(e);
-        	return false;
+        	listField = clazz.getDeclaredField(listFieldName);
+        	limitedField = clazz.getDeclaredField(limitedFieldName);
+        	listField.setAccessible(true);
+        	limitedField.setAccessible(true);
+	        list = (List<Object>) listField.get(value);
+	        limitedValue = (Integer) limitedField.get(value);
+		} catch (NoSuchFieldException e) {
+			log.error(e);
+			return false;
+		} catch (SecurityException e) {
+			log.error(e);
+			return false;
+		} catch (IllegalArgumentException e) {
+			log.error(e);
+			return false;
 		} catch (IllegalAccessException e) {
 			log.error(e);
+			return false;
+		}
+        if(limitedValue == null||list == null){
+        	return true;
+        }
+        if(limitedValue<list.size()){
+        	return true;
+        }
+        else{
+        	constraintValidatorContext.disableDefaultConstraintViolation();
+        	constraintValidatorContext.buildConstraintViolationWithTemplate(
+					constraintValidatorContext.getDefaultConstraintMessageTemplate())
+					.addPropertyNode(limitedFieldName)
+					.addConstraintViolation();  
 			return false;
 		}
         

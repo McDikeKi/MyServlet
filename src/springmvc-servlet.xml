@@ -15,6 +15,8 @@
         http://www.springframework.org/schema/aop 
         http://www.springframework.org/schema/aop/spring-aop.xsd">                  
 
+	<import resource="beans.xml"/>
+
 	<!-- if you use annotation you must configure following setting -->
 	<mvc:annotation-driven validator="validator"/>
  	
@@ -54,68 +56,15 @@
     
     <bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">  
 	    <property name="basenames">  
-	        <list>  
+	        <list>
 	            <value>classpath:messages</value>  
-	            <value>classpath:org/hibernate/validator/ValidationMessages</value>  
-	        </list>  
-	    </property>  
-	    <property name="useCodeAsDefaultMessage" value="false"/>  
-	    <property name="defaultEncoding" value="UTF-8"/>  
-	    <property name="cacheSeconds" value="60"/>  
+	            <value>classpath:org/hibernate/validator/ValidationMessages</value>
+	        </list>
+	    </property>
+	    <property name="useCodeAsDefaultMessage" value="false"/>
+	    <property name="defaultEncoding" value="UTF-8"/>
+	    <property name="cacheSeconds" value="60"/>
 	</bean>
-   	  	
-   	<aop:aspectj-autoproxy/>     
-
-   	<aop:config>
-   		<aop:pointcut expression="execution(* org.harvey.solve.service.impl.*.*(..))" id="serviceTimeLogPoint"/>
-   		<aop:pointcut expression="execution(* org.harvey.solve.controller.*.*(..))" id="controllerTimeLogPoint"/>
-   		
-   		<aop:aspect ref="serviceMethodTime">
-         
-        	<aop:before method="showEnterTime" pointcut-ref="serviceTimeLogPoint" />
-         
-        	<aop:after-returning method="showExitTime" pointcut-ref="serviceTimeLogPoint"/>
-        
-        </aop:aspect>
-        
-        <aop:aspect ref="controllerMethodTime">
-         
-        	<aop:before method="showEnterTime" pointcut-ref="controllerTimeLogPoint" />
-         
-        	<aop:after-returning method="showExitTime" pointcut-ref="controllerTimeLogPoint"/>
-        
-        </aop:aspect>
-   	</aop:config>
-   	  	
-   	<bean id="controllerMethodTime" class="org.harvey.solve.timelog.ControllerMethodTime"/>
-   	
-   	<bean id="serviceMethodTime" class="org.harvey.solve.timelog.ServiceMethodTime"/>
-   	
-   	<bean id="businessMethodTime" class="org.harvey.solve.timelog.BusinessMethodTime"/>
-    
-    <bean id="fibonacciRequestCheckerService" class="org.harvey.solve.service.impl.FibonacciRequestCheckerServiceImpl"/>
-    
-    <bean id="fibonacciProblemSolverService" class="org.harvey.solve.service.impl.FibonacciProblemSolverServiceImpl"/>
-	
-	<bean id="josephRequestCheckerService" class="org.harvey.solve.service.impl.JosephRequestCheckerServiceImpl"/>
-	
-	<bean id="josephProblemSolverService" class="org.harvey.solve.service.impl.JosephProblemSolverServiceImpl"/>
-	
-	<bean id="fibonacciProblemSolverBusiness" class="org.harvey.solve.business.impl.FibonacciProblemSolverBusinessImpl">
-		<property name="fibonacciProblemSolverService" ref="fibonacciProblemSolverService"></property>
-	</bean>	
-	
-	<bean id="fibonacciRequestCheckerBusiness" class="org.harvey.solve.business.impl.FibonacciRequestCheckerBusinessImpl">
-		<property name="fibonacciRequestCheckerService" ref="fibonacciRequestCheckerService"></property>
-	</bean>	
-	
-	<bean id="josephProblemSolverBusiness" class="org.harvey.solve.business.impl.JosephProblemSolverBusinessImpl">
-		<property name="josephProblemSolverService" ref="josephProblemSolverService"></property>
-	</bean>	
-	
-	<bean id="josephRequestCheckerBusiness" class="org.harvey.solve.business.impl.JosephRequestCheckerBusinessImpl">
-		<property name="josephRequestCheckerService" ref="josephRequestCheckerService"></property>	
-	</bean>	
 	
     <bean id="josephProblemController" class="org.harvey.solve.controller.JosephProblemController">
 		<property name="josephProblemSolverBusiness" ref="josephProblemSolverBusiness"/>

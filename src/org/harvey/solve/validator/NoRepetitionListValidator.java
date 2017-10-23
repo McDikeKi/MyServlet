@@ -1,22 +1,20 @@
 package org.harvey.solve.validator;
 
-
-import org.harvey.solve.validator.constraint.ListNoSameName;
+import org.harvey.solve.validator.constraint.NoRepetitionList;
 import org.springframework.stereotype.Service;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 import java.util.List;
 
-@SuppressWarnings("rawtypes")
 @Service
-public class ListNoSameNameValidator implements ConstraintValidator<ListNoSameName, List> {
+public class NoRepetitionListValidator implements ConstraintValidator<NoRepetitionList, List<?>> {
 
 
     @Override
-    public void initialize(ListNoSameName constraintAnnotation) {
+    public void initialize(NoRepetitionList constraintAnnotation) {
     }
 
-    public boolean isValid(List list, ConstraintValidatorContext constraintValidatorContext) {
+    public boolean isValid(List<?> list, ConstraintValidatorContext constraintValidatorContext) {
     	if(list == null){
     		return true;
     	}

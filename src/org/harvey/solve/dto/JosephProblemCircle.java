@@ -5,17 +5,21 @@ import java.util.List;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import org.harvey.solve.annotation.Mapping;
-import org.harvey.solve.validator.constraint.ListNoSameName;
 import org.harvey.solve.validator.constraint.ListNotHasNull;
+import org.harvey.solve.validator.constraint.ListSizeLimitation;
 import org.harvey.solve.validator.constraint.MinLength;
+import org.harvey.solve.validator.constraint.NoRepetitionList;
 
-
+@ListSizeLimitation(listFieldName="persons",limitedFieldName="start"
+			,message="{errormessage.start.largerthanlistsize}")
+@ListSizeLimitation(listFieldName="persons",limitedFieldName="interval"
+			,message="{errormessage.interval.largerthanlistsize}")
 public class JosephProblemCircle {
 	@Mapping(jsonFieldName = "circle.persons")
 	@NotNull(message="{errormessage.null}")
 	@MinLength(value=1,message="{errormessage.circle.minsize}")
 	@ListNotHasNull(message="{errormessage.circle.nonullelement}")
-	@ListNoSameName(message="{errormessage.circle.nosameelement}")
+	@NoRepetitionList(message="{errormessage.circle.nosameelement}")
 	private List<String> persons;
 	
 	@Mapping(jsonFieldName = "circle.start")

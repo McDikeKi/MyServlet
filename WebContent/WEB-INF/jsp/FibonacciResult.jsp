@@ -13,7 +13,7 @@
 		<p>
 			<span>Fibonacci Sequence:</span>
 			<c:forEach items="${list}" var="node">
-				<br/> <c:out value="${node}"></c:out>	
+				<br/> <c:out value="${node}"></c:out>
 			</c:forEach>
 	</p>
 	</body>

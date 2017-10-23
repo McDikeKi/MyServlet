@@ -15,7 +15,6 @@ public class BusinessMethodTime {
 	
 	@Pointcut("execution(* org.harvey.solve.business.impl.*.*(..))")
 	public void businessMethod(){
-		
 	}
 	
 	@Before("businessMethod()")

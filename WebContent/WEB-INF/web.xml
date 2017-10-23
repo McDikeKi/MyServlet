@@ -1,18 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" id="WebApp_ID" version="3.0">
-  <welcome-file-list>
-    <welcome-file>JosephInputNew.html</welcome-file>
-  </welcome-file-list>
-  <servlet>
-    <servlet-name>fibonacci</servlet-name>
-    <servlet-class>org.harvey.solve.servlet.FibonacciServlet</servlet-class>
-  </servlet>
-  <servlet>
-    <servlet-name>joseph</servlet-name>
-    <servlet-class>org.harvey.solve.servlet.JosephServlet</servlet-class>
-  </servlet>
+	<welcome-file-list>
+		<welcome-file>JosephInputNew.html</welcome-file>
+	</welcome-file-list>
   
-  <servlet>
+	<servlet>
 	    <servlet-name>springmvc</servlet-name>
 	    <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
 	    <init-param>
@@ -27,12 +19,4 @@
 	    <url-pattern>/</url-pattern>
 	</servlet-mapping>
 	
-	<servlet-mapping>
-	  	<servlet-name>fibonacci</servlet-name>
-	    <url-pattern>/FibonacciResult</url-pattern>
-	</servlet-mapping>
-	<servlet-mapping>
-	    <servlet-name>joseph</servlet-name>
-	    <url-pattern>/JosephResult</url-pattern>
-	</servlet-mapping>
 </web-app>

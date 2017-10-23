@@ -16,14 +16,14 @@ import java.lang.annotation.Target;
 import javax.validation.Constraint;
 import javax.validation.Payload;
 
-import org.harvey.solve.validator.ListNoSameNameValidator;
+import org.harvey.solve.validator.NoRepetitionListValidator;
 
 @Target({ElementType.ANNOTATION_TYPE, ElementType.METHOD, ElementType.FIELD})
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
-@Constraint(validatedBy = ListNoSameNameValidator.class)
+@Constraint(validatedBy = NoRepetitionListValidator.class)
 
-public @interface ListNoSameName {
+public @interface NoRepetitionList {
 
     String message();
     Class<?>[] groups() default {};
@@ -33,6 +33,6 @@ public @interface ListNoSameName {
     @Retention(RUNTIME)
     @Documented
     @interface List {
-    	ListNoSameName[] value();
+    	NoRepetitionList[] value();
     }
 }

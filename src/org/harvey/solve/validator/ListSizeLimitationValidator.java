@@ -33,16 +33,8 @@ public class ListSizeLimitationValidator implements ConstraintValidator<ListSize
         	limitedField.setAccessible(true);
 	        list = (List<Object>) listField.get(value);
 	        limitedValue = (Integer) limitedField.get(value);
-		} catch (NoSuchFieldException e) {
-			log.error(e);
-			return false;
-		} catch (SecurityException e) {
-			log.error(e);
-			return false;
-		} catch (IllegalArgumentException e) {
-			log.error(e);
-			return false;
-		} catch (IllegalAccessException e) {
+		} catch (NoSuchFieldException |SecurityException
+								|IllegalArgumentException|IllegalAccessException e) {
 			log.error(e);
 			return false;
 		}

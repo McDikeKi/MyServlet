@@ -2,6 +2,8 @@ package org.harvey.solve.validator;
 
 import org.harvey.solve.validator.constraint.NoRepetitionList;
 import org.springframework.stereotype.Service;
+import org.springframework.util.ObjectUtils;
+
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 import java.util.List;
@@ -23,7 +25,7 @@ public class NoRepetitionListValidator implements ConstraintValidator<NoRepetiti
         }
     	for (int i = 0;i < list.size()-1;i++) {
         	for(int j = i+1;j < list.size();j++){
-	            if(list.get(i)!=null&&list.get(j)!=null&&list.get(i).equals(list.get(j))){
+	            if(ObjectUtils.nullSafeEquals(list.get(i), list.get(j))){
 	            	return false;
 	            }
         	}
